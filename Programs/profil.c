@@ -1,8 +1,8 @@
 #include<stdlib.h>
 #include<stdio.h>
 
-#define ITER 5
-#define LEN 3
+#define ITER 10
+#define LEN 4
 
 
 long int puis(long int x, int p)

@@ -27,7 +27,7 @@ Scripts in this directory allow to compare anymalign's results with classic Asso
 Corpuses of small and medium length, and corresponding output files, can be found in "min" and "mie".
 Use is for instance:
     "python anymalign -N 1 mie/miniepps.fr mie/miniepps.en > mie/epps.anymalign"
-    "perl anymnprob.pl mie/miniepps.fr mie/miniepps.en k > mie/miniepps.anymalign" with k the (integer) average subcorpuses size of anymalign
+    "perl anymnprob.pl mie/miniepps.fr mie/miniepps.en k > mie/miniepps.anymprob" with k the (integer) average subcorpuses size of anymalign
     "perl pairspp.pl mie/miniepps.fr mie/miniepps.en > mie/miniepps.pairs"
     "perl mergepairsNprobs.pl mie/miniepps.pairs mie/miniepps.anymalign N mie/miniepps.anymprobs" with N the total number of subcorpuses seen by anymalign
     "perl logmerge.pl mie/miniepps.merged > mie/miniepps.logmerged"

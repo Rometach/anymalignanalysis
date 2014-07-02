@@ -68,7 +68,7 @@ int main (int argc, char** argv)
 				aleaf = ((float)(rand()%DICO))/DICO;
 				k = -1;
 				f = 0;
-				while(f <= aleaf)
+				while(aleaf >= f)
 				{
 					k++;
 					f += dico[k];

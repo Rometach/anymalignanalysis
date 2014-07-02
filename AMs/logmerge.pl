@@ -2,12 +2,12 @@
 
 
 open(MERGE, "$ARGV[0]") or die "cannot open merged file $ARGV[0]\n";
-print "# e	f	g2	phi2	im	jacc	nexp	yuleq	yuleo	salience	ttest	zscore	brawnb	simpson	laplace	pcount	rawim	pik	pdk	joint	fnext	x	next";
+print "# e	f	g2	phi2	im	jacc	nexp	yuleq	yuleo	salience	ttest	zscore	brawnb	simpson	laplace	pcount	rawim	pik	pdk	logki	joint	fnext	pef	pfe	pmoy	x	next\n";
 $_ = <MERGE>;
 
 while(<MERGE>) {
   chop; $_ =~ s/^[ 	]*//g;
-  ($e, $f, $g2, $phi2, $im, $jacc, $nexp, $yuleq, $yuleo, $salience, $ttest, $zscore, $brawnb, $simpson, $laplace, $pcount, $rawim, $pik, $pdk, $joint, $fnext, $x, $next) = split(/[	 ]+/);
+  ($e, $f, $g2, $phi2, $im, $jacc, $nexp, $yuleq, $yuleo, $salience, $ttest, $zscore, $brawnb, $simpson, $laplace, $pcount, $rawim, $pik, $pdk, $logki, $joint, $fnext, $pef, $pfe, $pmoy, $x, $next) = split(/[	 ]+/);
 #  $e=logbeton($e);
 #  $f=logbeton($f);
 #  $g2=logbeton($g2);
@@ -27,11 +27,12 @@ while(<MERGE>) {
 #  $rawim=logbeton($rawim);
 #  $pik=logbeton($pik);
 #  $pdk=logbeton($pdk);
+#  $logki=logbeton($logki);
 #  $joint=logbeton($joint);
 #  $fnext=logbeton($fnext);
 #  $x=logbeton($x);
-  $next=logbeton($next);
-  print "$e	$f	$g2	$phi2	$im	$jacc	$nexp	$yuleq	$yuleo	$salience	$ttest	$zscore	$brawnb	$simpson	$laplace	$pcount	$rawim	$pik	$pdk	$joint	$fnext	$x	$next\n";
+  $next=log($next);
+  print "$e	$f	$g2	$phi2	$im	$jacc	$nexp	$yuleq	$yuleo	$salience	$ttest	$zscore	$brawnb	$simpson	$laplace	$pcount	$rawim	$pik	$pdk	$logki	$joint	$fnext	$pef	$pfe	$pmoy	$x	$next\n";
 }
 
 sub logbeton($) {

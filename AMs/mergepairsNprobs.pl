@@ -53,7 +53,7 @@ while(<PROBS>) {
 }
 close PROBS;
 
-print "# e	f	g2	phi2	im	jacc	nexp	yuleq	yuleo	salience	ttest	zscore	brawnb	simpson	laplace	pcount	rawim	pik	pdk	joint	fnext	x	next\n";
+print "# e	f	g2	phi2	im	jacc	nexp	yuleq	yuleo	salience	ttest	zscore	brawnb	simpson	laplace	pcount	rawim	pik	pdk	logki	joint	fnext	pef	pfe	pmoy	x	next\n";
 open(ALIGN, "$ARGV[1]") or die "cannot open alignments\n";
 while(<ALIGN>) {
   chop;
@@ -73,8 +73,9 @@ while(<ALIGN>) {
   else {
     # donne la probabilité d'être alignés sachant qu'ils sont tirés.
     $x = $fnext/$joint{$key};
+    $moy = ($pfe+$pef)/2;
     warn "strange prob for $key fnext=$fnext joint=$joint next=$next" if ($fnext > 1 or $joint{$key} > 1);
-    print "'$e'	'$f'	$g2{$key}	$phi2{$key}	$im{$key}	$jacc{$key}	$nexp{$key}	$yuleq{$key}	$yuleo{$key}	$salience{$key}	$ttest{$key}	$zscore{$key}	$brawnb{$key}	$simpson{$key}	$laplace{$key}	$pcount{$key}	$rawim{$key}	$pik{$key}	$pdk{$key}	$logki{$key}	$joint{$key}	$fnext	$x	$next\n" unless ($fnext > 1 or $joint{$key} > 1);
+    print "'$e'	'$f'	$g2{$key}	$phi2{$key}	$im{$key}	$jacc{$key}	$nexp{$key}	$yuleq{$key}	$yuleo{$key}	$salience{$key}	$ttest{$key}	$zscore{$key}	$brawnb{$key}	$simpson{$key}	$laplace{$key}	$pcount{$key}	$rawim{$key}	$pik{$key}	$pdk{$key}	$logki{$key}	$joint{$key}	$fnext	$pef	$pfe	$moy	$x	$next\n" unless ($fnext > 1 or $joint{$key} > 1);
   }
 }
 close ALIGN;

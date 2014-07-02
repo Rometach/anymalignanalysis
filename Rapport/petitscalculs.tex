@@ -1,0 +1,126 @@
+\documentclass{article}
+\usepackage{graphicx}
+\usepackage[utf8]{inputenc}
+\usepackage[francais,english]{babel}
+\usepackage[table]{xcolor}
+\usepackage{amsmath}
+\usepackage{amssymb}
+
+\begin{document}
+
+
+\section{Introduction}
+Compte-rendu des micro-calculs que j'ai tenté de faire sur anymalign. J'ai surtout essayé d'obtenir des résultats généraux, notamment à travers la notion de profil (parce que c'est spécifique d'anymalign). Peu de choses ont abouti, mais il doit rester des choses exploitables ?\dots
+
+\section{Profil d'un mot}
+On modélise le sous-corpus $S$ comme $|S|$ lignes de $m$ mots.
+
+Soit $w$ un mot de fréquence $f$. On a
+
+\begin{equation}
+P[w \text{ apparait }0 \text{ fois dans une ligne donnée}] = (1-f)^m
+\end{equation}
+\begin{equation}
+	P[w\text{ apparait}\geq0\text{ fois dans une ligne donnée}] = 1-(1-f)^m
+\end{equation}
+
+Et donc si $\Pi$ est un profil (vu comme un vecteur de $\{0,1\}^{|S|}$) : 
+
+\begin{equation}
+	P[\text{le profil de }w\text{ est }\Pi] = (1-f)^{m(|S|-|\Pi|)}\cdot(1-(1-f)^m)^{|\Pi|}
+\end{equation}
+
+Sous hypothèses d'indépendance. Si on manipule un peu cette formule, on obtient avec DL à l'ordre 1 :
+
+\begin{equation}
+	P[\text{le profil de }w\text{ est }\Pi] = [1+mf(|\Pi|-|S|)+o(f)]\cdot[(mf+o(f))^{|Pi|}]
+\end{equation}
+
+ou encore
+
+\begin{equation}
+	P[\text{le profil de }w\text{ est }\Pi] = (1-f)^{m|S|}\cdot[(1-f)^{-m}-1]^{|\Pi|}
+\end{equation}
+
+
+\section{Découpage en profils}
+De m\^eme, on considère le corpus $S$ et on le découpe en profils.  Par exemple, le corpus suivant de $4$ lignes de $5$ mots est découpé en $5$ profils ($5$ couleurs) : \\
+
+\begin{tabular}{|c|c|c|c|c|}
+  \hline
+  \cellcolor{blue} & \cellcolor{blue} & \cellcolor{violet} & \cellcolor{violet} & \cellcolor{violet} \\
+  \hline
+  \cellcolor{red} & \cellcolor{red} & \cellcolor{red} & \cellcolor{green} & \cellcolor{green} \\
+  \hline
+  \cellcolor{blue} & \cellcolor{blue} & \cellcolor{yellow} & \cellcolor{green} & \cellcolor{green} \\
+  \hline
+  \cellcolor{blue} & \cellcolor{blue} & \cellcolor{yellow} & \cellcolor{green} & \cellcolor{green} \\
+  \hline
+\end{tabular} \\
+
+ce qu'on peut écrire si l'on veut comme
+
+\begin{equation}
+	\left(\begin{array}{c}
+	5 \\ 5 \\ 5 \\ 5
+	\end{array}\right) = 
+	2\cdot\left(\begin{array}{c}
+	1 \\ 0 \\ 1 \\ 1
+	\end{array}\right) +
+	2\cdot\left(\begin{array}{c}
+	0 \\ 1 \\ 1 \\ 1
+	\end{array}\right) +
+	3\cdot\left(\begin{array}{c}
+	0 \\ 1 \\ 0 \\ 0
+	\end{array}\right) +
+	3\cdot\left(\begin{array}{c}
+	1 \\ 0 \\ 0 \\ 0
+	\end{array}\right) +
+	1\cdot\left(\begin{array}{c}
+	0 \\ 0 \\ 1 \\ 1
+	\end{array}\right)
+\end{equation}
+
+On aimerait bien dénombrer et calculer la probabilité d'un découpage donné.
+
+\subsection{Dénombrer}
+Cela ne semble pas facile. Il y a évidemment $2^{|S|}$ profils distincts ($\mathfrak{P}([1..|S|])$), dont $\binom{|S|}{k}$ de norme $k$. En partant des partitions de $m\times|S|$ ou d'un coloriage quelconque, on ne semble pas arriver grand part. De même, compter les fonctions $\varphi : \mathfrak{P} \longrightarrow \mathbb{N}$ telles que $\sum_{A\in\mathfrak{P}(|S|)} |A|\cdot\varphi(A) = m|S|$
+($\sum_{k=1}^{|S|}\sum_{|A|=k}k\varphi(A) = m|S|$).
+
+Pas d'acharnement ; en plus ce problème a sans doute déjà été résolu ; il s'agira alors juste de trouver où (ou de trouver un matheux qui sait où trouver).
+
+\subsection{Probabilité d'un découpage}
+
+Si l'on se donne un découpage $\Pi_1,\dots,\Pi_k$, un ensemble de mot $D$ (pour dico) ainsi qu'une distribution de probabilité sur $D$ (typiquement, uniforme, zipf), on aimerait calculer la probabilité d'obtenir ce découpage en remplissant aléatoirement le corpus de mots de $D$.
+
+On se rapproche dans ce cas de la section 2. Pas de calculs pour l'instant !
+
+Remarque : ci-avant, on considérait la probabilité qu'un mot donné ait un profil donné ; il faut voir comment on prend en compte le fait qu'un mot apparaît plusieurs fois dans la même ligne (est-ce qu'on regarde le profil total du mot ou bien est-ce qu'on donne un profil à chaque occurrence).
+
+
+\section{Objectifs}
+
+Pour l'instant, ce ne sont que des calculs dans le vent. L'objectif est de pouvoir mesurer la probabilité d'aligner un mot donné, ou un n-gram. Typiquement on se place dans le modèle simplifié non-bruité : les traductions sont parfaitement parallèles. On ne doit donc plus regarder qu'une seule langue et étudier avec quelle probabilité un mot possède un profil \emph{distinguishable}.
+
+Dans un monde idéal et merveilleux, il faudrait pouvoir exprimer les calculs en fonction de $|S|$ (afin de pouvoir conclure quelque chose d'intéressant sur la 'bonne' taille des sous-corpus à considérer (selon ce qu'on souhaite obtenir comme alignements)).
+
+Pour un mot de fréquence faible, c'est le ''détail'' de \emph{comments.pdf} qu'il faut analyser. Si c'est un hapax (au moins dans le sous-corpus), pour $|S|$ suffisamment grand, il sera aligné à la seule condition d'\^etre le seul dans cette phrase. Mais quand on considère les segments plus longs (vague idée à développer : considérer les $n+1$-grams revient à considérer un nouveau sous-corpus de $m-1$ mots par phrase, où les profils dépendent fortement de ceux des $n$-grams), les "hapaxes" se multiplient et il devient impossible d'en aligner.
+
+\section{Conclusion}
+
+Une fois \LaTeX{}isé, ça ne pèse pas très lourd tout ça\dots
+
+:-(
+
+$
+\begin{pmatrix}
+   1-f_1 & f_1 & 0 & \cdots & \cdots & 0 \\
+   1-f_2 & 0 & f_2 & 0 & \cdots & 0 \\
+   \vdots & \vdots & \ddots & \ddots & \ddots & \vdots \\
+   \vdots & \vdots &  & \ddots & \ddots  & 0 \\
+   1-f_n & 0 & \cdots & \cdots & 0 & f_n \\
+   1 & 0 & \cdots & \cdots & \cdots & 0 \\
+\end{pmatrix}
+$
+
+\end{document}

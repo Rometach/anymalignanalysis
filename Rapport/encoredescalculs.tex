@@ -1,0 +1,161 @@
+\documentclass{article}
+\usepackage{graphicx}
+\usepackage[utf8]{inputenc}
+\usepackage[francais,english]{babel}
+\usepackage[table]{xcolor}
+\usepackage{amsmath}
+\usepackage{amssymb}
+
+\begin{document}
+
+\tableofcontents
+\newpage
+
+\section{Probabilité qu'un certain mot ait un certain profil}
+
+On considère le sous-corpus $S$ composé de $|S|$ phrases de $m$ mots chacune.
+
+Soit $w$ un mot de fréquence $f$, $\Pi$ un profil (vecteur de $\{0,1\}^{|S|}$). On a
+
+\begin{align}
+	P[\pi(w)=\Pi] & = (1-f)^{m(|S|-|\Pi|)}\cdot(1-(1-f)^m)^{|\Pi|} \\
+	& = (1-f)^{m|S|}\cdot((1-f)^{-m}-1)^{|\Pi|}
+\end{align}
+
+(cf petitscalculs.pdf)
+
+
+
+\section{Probabilité qu'un certain n-gram ait un certain profil}
+
+\subsection{En fonction des fréquences des mots}
+
+Soit $w=w_1 \cdots w_n$ le n-gram composé des $n$ mots $w_1$, \dots , $w_n$ de fréquences respectives $f_1$, \dots , $f_n$.
+
+Sous les hypothèses (ça commence à faire beaucoup d'hypothèses) que :
+
+\begin{itemize}
+	\item[(i)] $i \neq j \Rightarrow w_i \neq w_j$ ;
+	\item[(ii)] $w$ apparaît au plus 1 fois par ligne.
+\end{itemize}
+
+Alors la probabilité que $w$ soit présent dans une ligne donnée est
+
+\begin{equation}
+	(m-n)\prod_{j=1}^n f_j
+\end{equation}
+
+(Somme sur les événements disjoints '$w$ apparaît et commence en position i')
+
+Si on voulait un calcul exact sans l'hypothèse (ii), on peut modéliser par une chaîne de Markov à $n+1$ états et calculer les puissances de la matrice stochastique
+
+$\begin{pmatrix}
+   1-f_1 & f_1 & 0 & \cdots & \cdots & 0 \\
+   1-f_2 & 0 & f_2 & 0 & \cdots & 0 \\
+   \vdots & \vdots & \ddots & \ddots & \ddots & \vdots \\
+   \vdots & \vdots &  & \ddots & \ddots  & 0 \\
+   1-f_n & 0 & \cdots & \cdots & 0 & f_n \\
+   1 & 0 & \cdots & \cdots & \cdots & 0 \\
+\end{pmatrix}$
+
+mais ça a l'air compliqué.
+
+
+\subsection{En fonction des profils des mots}
+
+Soit $w=w_1 \cdots w_n$ le n-gram composé des $n$ mots $w_1$, \dots , $w_n$ de profils respectifs $\Pi_1$, \dots , $\Pi_n$.
+
+Le profil de $w$ ne peut être que parmi $\bigcap_{j=1}^{n}\Pi_j$.
+
+Sous les hypothèses (ça commence à faire beaucoup d'hypothèses) que :
+
+\begin{itemize}
+	\item[(i)] les mots sont globalement tirés indépendamment en fonction de leur seule fréquence, ainsi de même à l'intérieur d'une ligne donnée ;
+	\item[(i)] $i \neq j \Rightarrow w_i \neq w_j$ ;
+	\item[(ii)] chaque $w_i$ apparaît au plus 1 fois par ligne.
+\end{itemize}
+
+alors dans une ligne où tous les mots sont présents (une ligne de l'intersection des $\Pi_j$), la probabilité qu'ils apparaîssent dans le bon ordre est $(m-n)\frac{(m-n)!}{m!}$ (somme sur les événements disjoints '$w$ commence en position i').
+
+Ainsi pour $\Pi\subset\bigcap_{j=1}^n\Pi_j$ :
+
+\begin{equation}
+	P[\pi(w)=\Pi] =
+		\left[(m-n)\frac{(m-n)!}{m!}\right]^{|\Pi|}\cdot
+		\left[1-(m-n)\frac{(m-n)!}{m!}\right]^{|\cap\Pi_j|-|\Pi|}
+\end{equation}
+
+
+\subsection{Espérance de la taille du profil d'un n-gram}
+
+Les calculs précédents donnent envie de connaître le cardinal de l'ensemble des profils candidats $\bigcap_{j=1}^n\Pi_j$.
+
+Si on se donne les profils $\Pi_1$, \dots , $\Pi_n$, la probabilité qu'une phrase quelconque de $S$ apparaisse dans $\bigcap_{j=1}^n\Pi_j$ est par indépendance $\frac{|\Pi_1|\cdots|\Pi_n|}{|S|^n}$.
+
+Ainsi par linéarité de l'espérance
+
+\begin{equation}
+	\mathbb{E}[|\bigcap_{j=1}^n\Pi_j|] =
+		|S|\frac{|\Pi_1|\cdots|\Pi_n|}{|S|^n} = 
+		\frac{|\Pi_1|\cdots|\Pi_n|}{|S|^{n-1}}
+\end{equation}
+
+
+\section{Probabilité qu'un corpus admette un certain découpage}
+
+\c{C}a a l'air très compliqué\dots
+
+C'est f\^acheux parce que c'est typiquement ici que la distribution (Zipf) intervient.
+
+
+\section{Probabilité que deux mots donnés aient le m\^eme profil}
+
+\subsection{En général}
+
+Soient deux mots $w$ et $w'$ de fréquences $f$ et $g$. La probabilité que ces deux mots aient le même profil est
+
+\begin{align*}
+	P[\pi(w)=\pi(w')]
+	& = \sum_{\Pi~profil}P[\pi(w)=\Pi\wedge\pi(w')=\Pi] \\
+	& = \sum_{\Pi~profil}P[\pi(w)=\Pi]\cdot P[\pi(w')=\Pi] \\
+	& = \sum_{\Pi~profil}(1-f)^{m|S|}\cdot((1-f)^{-m}-1)^{\Pi}
+		\cdot(1-g)^{m|S|}\cdot((1-g)^{-m}-1)^{\Pi} \\
+	& = \sum_{\Pi~profil}[(1-f)(1-g)]^{m|S|}
+		\cdot[((1-f)^{-m}-1)((1-g)^{-m}-1)] \\
+	& = \sum_{k=0}^{|S|}~\sum_{|\Pi|=k} [(1-f)(1-g)]^{m|S|}
+		\cdot[((1-f)(1-g))^{-m}-(1-f)^{-m}-(1-g)^{-m}+1]^{|\Pi|} \\
+	& = \sum_{k=0}^{|S|}\binom{|S|}{k} [(1-f)(1-g)]^{m|S|}
+		\cdot[((1-f)(1-g))^{-m}-(1-f)^{-m}-(1-g)^{-m}+1]^k \\
+	& = [(1-f)(1-g)]^{m|S|}
+		\cdot[((1-f)(1-g))^{-m}-(1-f)^{-m}-(1-g)^{-m}+2]^{|S|} \\
+	& = [1-(1-f)^m-(1-g)^m+2(1-f)^m(1-g)^m]^{|S|}
+\end{align*}
+
+qu'on peut aussi écrire si on y tient
+
+\begin{equation}
+	P[\pi(w)=\pi(w')] = [(1-(1-f)^m)(1-(1-g)^m)+(1-f)^m(1-g)^m]^{|S|}
+\end{equation}
+
+\subsection{Profil non-nul}
+
+Soient deux mots $w$ et $w'$ de fréquences $f$ et $g$. La probabilité que ces deux mots aient le même profil non-nul est
+
+\begin{align*}
+	P[\pi(w)=\pi(w')]
+	& = \sum_{\Pi \neq 0}P[\pi(w)=\Pi\wedge\pi(w')=\Pi] \\
+	& = \sum_{\Pi \neq 0}P[\pi(w)=\Pi]\cdot P[\pi(w')=\Pi] \\
+	& = \sum_{\Pi \neq 0}(1-f)^{m|S|}\cdot((1-f)^{-m}-1)^{\Pi}
+		\cdot(1-g)^{m|S|}\cdot((1-g)^{-m}-1)^{\Pi} \\
+	& = \sum_{\Pi \neq 0}[(1-f)(1-g)]^{m|S|}
+		\cdot[((1-f)^{-m}-1)((1-g)^{-m}-1)] \\
+	& = \sum_{k=1}^{|S|}~\sum_{|\Pi|=k} [(1-f)(1-g)]^{m|S|}
+		\cdot[((1-f)(1-g))^{-m}-(1-f)^{-m}-(1-g)^{-m}+1]^{|\Pi|} \\
+	& = \sum_{k=1}^{|S|}\binom{|S|}{k} [(1-f)(1-g)]^{m|S|}
+		\cdot[((1-f)(1-g))^{-m}-(1-f)^{-m}-(1-g)^{-m}+1]^k \\
+	& = [(1-f)(1-g)]^{m|S|}
+		\cdot[[((1-f)(1-g))^{-m}-(1-f)^{-m}-(1-g)^{-m}+2]^{|S|}-1] \\
+	& = [1-(1-f)^m-(1-g)^m+2(1-f)^m(1-g)^m]^{|S|} - [(1-f)(1-g)]^{m|S|}
+\end{align*}
+
+\end{document}
