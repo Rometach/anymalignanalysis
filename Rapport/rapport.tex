@@ -1,43 +1,199 @@
-\documentclass{article}
-\usepackage{bookman}
-\usepackage{graphicx}
+
+
+\documentclass[a4paper,10pt]{article}
+
+\usepackage[english]{babel}
 \usepackage[utf8]{inputenc}
-\usepackage[english,french]{babel}
-\usepackage[table]{xcolor}
+\usepackage[T1]{fontenc}
+\usepackage{bookman}
 \usepackage{amsmath}
+\usepackage{amscd}
 \usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{latexsym}
+\usepackage{graphicx}
+\usepackage{color}
+\usepackage{calc}
+%\usepackage[boxruled,vlined,french]{algorithm2e}
+
+\setlength{\voffset}{-3.75cm}
+\setlength{\hoffset}{-2.6cm}
+\setlength{\oddsidemargin}{2.75cm}
+\setlength{\topmargin}{2in}
+\setlength{\headheight}{0in}
+\setlength{\headsep}{0in}
+\setlength{\topskip}{0in}
+\setlength{\parindent}{0cm}
+\setlength{\parskip}{1ex plus0.4ex minus0.2ex}
+\setlength{\textwidth}{16.25cm}
+\setlength{\textheight}{20.5cm}
+\renewcommand{\baselinestretch}{1.5}
+\flushbottom
+\setcounter{page}{1}
+
+%\SetKw{Edb}{Effet de bord}
+%\SetKw{Et}{et}
+%\SetKw{Ou}{ou}
+%\SetKw{De}{de}
+%\SetKw{A}{à}
+%\SetKwBlock{Debut}{Début}{Fin}
+%\SetKwIF{Si}{SinonSi}{Sinon}{Si}{alors}{Sinon si}{Sinon}{FinSi}
+%\SetKwFor{Pour}{Pour}{faire}{FinPour}
+%\SetKwFor{TantQue}{Tant que}{faire}{FinTantQue}
+%\SetKw{Retour}{retourner}
+
+\newcommand{\anym}{\emph{anymalign}}
+\newcommand{\guill}[1]{« #1 »}
+
+\newtheorem{probleme}{Problème}
 
 
-\title{Titre}
-\author{Auteur}
+% $$$ Faire une Titlepage un peu plus jolie...
+\title{ \Large Rapport de stage \\ \LARGE Analyse d'un algorithme d'alignement multilingue}
+
+\author{\normalsize Romain \textsc{Versaevel}, L3 Informatique Fondamentale, ENS de Lyon \\ \normalsize Encadré par M. François \textsc{Yvon}, directeur du LIMSI/CNRS \\}
+
 \date{\today}
 
-
 \begin{document}
+
 \maketitle
+
 \begin{abstract}
-Résumé.
+Ce rapport rend compte de mon stage de Licence 3 réalisé au LIMSI/CNRS, durant lequel j'ai étudié l'algorithme d'alignement multilingue \anym .
+
+Après une présentation du domaine de recherche, le traitement automatique des langues parlées, et plus particulièrement la traduction automatique, je propose des résultats pratiques et théoriques qui valident l'algorithme \anym~et en montrent certaines limites. %$$$ LAID
 \end{abstract}
+
 \newpage
 \tableofcontents
 \newpage
 
-
 \section{Introduction}
-
-
+J'ai suivi dans le cadre de ma formation, en Licence 3 d'Informatique à l'ENS de Lyon un stage obligatoire de recherche d'une durée de six semaines. Ce stage s'est déroulé 
+% $$$ Blabla
 
 \section{Contexte, rappels}
 
+Cette section présente le domaine de recherche dans lequel s'incrit le stage : le traitement automatique des langues parlées, puis plus particulièrement la traduction automatique. Elle est essentiellement bibliographique.
+
 \subsection{Traitement des langues parlées}
 
+
+
+
+
+
 \subsection{Traduction automatique}
+
+La \emph{traduction automatique}, en anglais \emph{Machine translation}, a pour objet la traduction de textes d'une langue naturelle vers une autre, par l'intermédiaire d'algorithmes et d'ordinateurs (dans intervention humaine --- on parle sinon de \emph{traduction assistée par ordinateur}). Si l'on peut chercher les origines de cette discipline dans les langues universelles imaginées par Descartes et Leibniz au XVII\textsuperscript{e} siècle
+% $$$ ndbdp, citation
+, par le truchement desquelles on pourrait passer de n'importe quelle langue à n'importe quelle autre, c'est en 1947 que le mathématicien américain Warren Weaver propose pour la première fois d'utiliser les ordinateurs pour réaliser des travaux de traduction à l'UNESCO.
+% http://www.mt-archive.info/Weaver-1947-original.pdf
+La discipline a depuis fait des progrès considérables. Ses motivations, développées par John Hutchins dans
+%http://www.hutchinsweb.me.uk/PPF-1.pdf
+sont nombreuses. Il évoque la nécessité dans certaines professions de consulter des documents rédigés dans des langues très diverses, la simplification de la transmission des savoirs, des applications militaires, mais aussi des raisons plus idéologiques : la traduction permet la communication et donc la paix. Notons que la traduction automatique ne fait pas concurrence aux traducteurs humains, qui s'adressent à un public différent. Sa vocation n'est pas de réaliser des traductions littéraires ou des traductions parfaites, mais de rendre accessible, rapidement et à moindre coût, une très grande quantité de documents à des locuteurs de toutes les langues.
+
+La traduction est un exercice considéré difficile depuis longtemps. \guill{Traduttore, traditore} disent les italiens : \guill{Traduire, c'est trahir}. Les ordinateurs n'ont pas des prétentions si élevées que celle de transmettre fidèlement la pensée de l'auteur original ; ils doivent cependant relever toutes sortes de défis. Ainsi l'idée naïve d'une traduction mot à mot à l'aide d'un simple dictionnaire bilingue produit-elle de très mauvais résultats, parce qu'un mot dans une langue peut se traduire par plusieurs dans une autre (\emph{Rindfleischetikettierungsüberwachungsaufgavenübertragungsgesetz} est ainsi l'équivalent allemand de \emph{loi sur le transfert des obligations de surveillance de l'étiquetage de la viande bovine} en français, soit 1 mot contre 15), parce que la polysémie ou l'homonymie ne sont pas prises en compte (faut-il traduire \emph{avocat} par \emph{avocado} ou \emph{lawyer} ? \emph{cut} par \emph{couper}, par \emph{coupé}, par \emph{coupions} ?), non plus que les idiomes (\emph{Das ist nicht mein Bier} doit être traduit par \emph{Ce ne sont pas mes oignons} et non littérallement par \emph{Ce n'est pas ma bière}), etc.
+
+Bon nombre d'outils de traduction automatique ont été développés, les plus connus étant Google translate et SYSTRAN (utilisé par Yahoo et BabelFish). Les approches sont nombreuses, elles peuvent s'appuyer ou non sur des outils d'analyse linguistique, être unilatéralse ou bilatérales, statistiques ou non\dots
+% Liens ; statistiques ? $$$
+
+Les algorithmes qui nous intéressent plus particulièrement ici ne sont pas des algorithmes de traduction pure mais des algorithmes d'\emph{alignement}, qui génèrent des données pour les premiers en analysant des corpus édités en plusieurs langues. On cite souvent l'exemple de Champollion qui apprit à déchiffrer les hiéroglyphes grâce à la pierre de Rosette. Les algorithmes d'alignement utilisent ainsi des corpus multilingues --- dont il existe grâce à Internet de grandes quantités --- pour en extraire des relations de traduction entre des paires de mot. Le plus utilisé est Giza++.
+
+%@misc{och2003giza++,
+%  title={GIZA++},
+%  author={Och, FJ},
+%  year={2003}
+%}
+
+% Berkeley Word Aligner, Nile, ...
+
+Le stage que j'ai effectué portait sur l'analyse d'un algorithme d'alignement par échantillonage, \anym, développé par Adrien Lardilleux.
+
+
+\subsection{Quelques définitions et notations}
+
+Avant d'étudier plus avant \anym, il convient de poser quelques définitions.
+
+Dans un texte en langue naturelle, on appelle \emph{segment} (\emph{phrase} en anglais) un ensemble de mots. On appelera en outre $n$-gramme un segment de $n$ mots consécutifs.
+
+On appelle \emph{corpus multilingue} un ensemble de textes en plusieurs langues. On appelle \emph{corpus parallèle} un corpus multilingue dont les textes sont traduction les uns des autres. Enfin, un corpus parallèle est \emph{aligné} lorsque sont déterminées des relations (de traduction) entre segments de ses textes.
+
+\anym~considère des corpus parallèles de taille arbitraire alignés au niveau des phrases, et construit un dictionnaire d'alignements de segments plus petits. On limitera ici notre analyse à des corpus de deux seulement textes, qu'on appelera \emph{texte source} et \emph{texte cible}
+% ; un mot ou segment du texte source sera généralement noté $e$ (comme \emph{english}) et du texte cible $f$ (comme \emph{french} ou \emph{foreign})
+.
+
+%@article{Brown:1990:SAM:92858.92860,
+% author = {Brown, Peter F. and Cocke, John and Pietra, Stephen A. Della and Pietra, Vincent J. Della and Jelinek, Fredrick and Lafferty, John D. and Mercer, Robert L. and Roossin, Paul S.},
+% title = {A Statistical Approach to Machine Translation},
+% journal = {Comput. Linguist.},
+% issue_date = {June 1990},
+% volume = {16},
+% number = {2},
+% month = jun,
+% year = {1990},
+% issn = {0891-2017},
+% pages = {79--85},
+% numpages = {7},
+% url = {http://dl.acm.org/citation.cfm?id=92858.92860},
+% acmid = {92860},
+% publisher = {MIT Press},
+% address = {Cambridge, MA, USA},
+%} 
+
 
 
 
 \section{Présentation d'\emph{anymalign}}
 
 \subsection{L'algorithme}
+
+%\begin{algorithm}
+%\caption{kruskal \label{kruskal}}
+%
+%\SetKwData{g}{g}\SetKwData{arbre}{arbre}\SetKwData{nun}{n1}\SetKwData{ndeux}{n2}\SetKwData{nbN}{g.nbN}\SetKwData{ares}{ares}
+%\SetKwFunction{fonction}{fonction}
+%\Entree{un graphe $\g=(V,E,I)$, complet (certaines arêtes peuvent représenter des plus courts chemins).}
+%\Sortie{\arbre, arbre couvrant de \g de poids minimal.}
+
+%\Debut
+%{
+%$E_{libres} \leftarrow E_{|I}$ \Et $E_{traitées} \leftarrow \varnothing$ \\
+%$\arbre \leftarrow \varnothing$
+
+%\TantQue {$E_{libres} \neq \varnothing$}
+%{
+%$a_{min} \leftarrow$ \emph{arête de $E_{libres}$ de poids minimal} \\
+%$E_{libres} \leftarrow E_{libres}~\textbackslash~\{a_{min}\}$ \Et $E_{traitées} \leftarrow E_{traitées} \cup \{a_{min}\}$ \\
+%\Si {$(a_{min}.chemin[0].chef) \neq (a_{min}.chemin[a_{min}.longueur-1].chef)$}
+%{
+%\Pour{toute sous-arête $(s_i,s_{i+1})$ de $a_{min}$}
+%{
+%\Si{$(s_i,s_{i+1}) \notin \arbre$}
+%{
+%$\arbre \leftarrow (\arbre \cup \{(s_i,s_{i+1})\})$ \\
+%\Pour{tout sommet $s$ de même que chef que $s_{i+1}$}
+%{
+%$s.chef \leftarrow (a_{min}.chemin[0].chef)$
+%}
+%\Pour{toute arête $v$ de $E_{libres}$}
+%{
+%\Si{$(s_i,s_{i+1})$ est une sous-arête de $v$}
+%{
+%$v.poids \leftarrow (v.poids - (s_i,s_{i+1}).poids)$
+%}
+%}
+%}
+%}
+%}
+%}
+%\Retour \arbre
+%}
+%\end{algorithm}
+
+
+% Classification & short description
 
 \subsection{Qualités et défauts}
 (L'analyse déjà réalisée)
@@ -63,6 +219,8 @@ Exploitation des graphiques
 
 \section{Bibliographie}
 
+\bibliographystyle{plain}
+\bibliography{mabiblio}
 
 \section{Annexes}
 
@@ -84,3 +242,5 @@ Exploitation des graphiques
 %\subsection{Vitesse de convergence}
 %\subsection{Discussion sur la taille du sous-corpus}
 %\subsection{generateur.c}
+
+
