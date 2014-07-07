@@ -2,7 +2,7 @@
 
 \documentclass[a4paper,10pt]{article}
 
-\usepackage[english]{babel}
+\usepackage[english,french]{babel}
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
 \usepackage{bookman}
@@ -14,7 +14,7 @@
 \usepackage{graphicx}
 \usepackage{color}
 \usepackage{calc}
-%\usepackage[boxruled,vlined,french]{algorithm2e}
+\usepackage[boxruled,vlined,french]{algorithm2e}
 
 \setlength{\voffset}{-3.75cm}
 \setlength{\hoffset}{-2.6cm}
@@ -30,17 +30,19 @@
 \renewcommand{\baselinestretch}{1.5}
 \flushbottom
 \setcounter{page}{1}
+\setcounter{tocdepth}{2}
 
-%\SetKw{Edb}{Effet de bord}
-%\SetKw{Et}{et}
-%\SetKw{Ou}{ou}
-%\SetKw{De}{de}
-%\SetKw{A}{à}
-%\SetKwBlock{Debut}{Début}{Fin}
-%\SetKwIF{Si}{SinonSi}{Sinon}{Si}{alors}{Sinon si}{Sinon}{FinSi}
-%\SetKwFor{Pour}{Pour}{faire}{FinPour}
-%\SetKwFor{TantQue}{Tant que}{faire}{FinTantQue}
-%\SetKw{Retour}{retourner}
+\SetKw{Edb}{Effet de bord}
+\SetKw{Et}{et}
+\SetKw{Ou}{ou}
+\SetKw{De}{de}
+\SetKw{A}{à}
+\SetKwBlock{Debut}{Début}{Fin}
+\SetKwIF{Si}{SinonSi}{Sinon}{Si}{alors}{Sinon si}{Sinon}{FinSi}
+\SetKwFor{Pour}{Pour}{faire}{FinPour}
+\SetKwFor{PourTout}{Pour tout}{faire}{FinPour}
+\SetKwFor{TantQue}{Tant que}{faire}{FinTantQue}
+\SetKw{Retour}{retourner}
 
 \newcommand{\anym}{\emph{anymalign}}
 \newcommand{\guill}[1]{« #1 »}
@@ -70,23 +72,32 @@ Après une présentation du domaine de recherche, le traitement automatique des 
 \newpage
 
 \section{Introduction}
-J'ai suivi dans le cadre de ma formation, en Licence 3 d'Informatique à l'ENS de Lyon un stage obligatoire de recherche d'une durée de six semaines. Ce stage s'est déroulé 
-% $$$ Blabla
+J'ai suivi dans le cadre de ma formation, en Licence 3 d'Informatique à l'ENS de Lyon un stage de recherche d'une durée de six semaines, du 2 juin au 11 juillet 2014. Ce stage s'est déroulé au LIMSI (Laboratoire d'Informatique pour la Mécanique et les Sciences de l'Ingénieur), laboratoire CNRS situé sur le campus de l'université Paris-Sud, à Orsay, dans le groupe TLP (Traitement des Langues parlées, ou Spoken Language Processing Group). J'étais encadré par M. François Yvon, directeur du LIMSI.
+
+Le sujet de ce stage était d'analyser l'algorithme d'alignement multilingue \anym, conçu et implémenté par
+% $$$
+en
+% $$$
+, et utilisé par le LIMSI pour diverses applications. % $$$
+
+Ce rapport est divisé en quatre parties. Dans la première, je présente le contexte dans lequel s'inscrit mon travail, le domaine de la traduction automatique. Dans la deuxième, je présente l'algorithme que j'ai étudié et l'analyse qui en avait déjà été réalisée. Dans les troisième et quatrième, je présente les résultats de ma propre analyse, empirique (confrontation avec des mesures d'association) et théorique.
+
+
 
 \section{Contexte, rappels}
 
-Cette section présente le domaine de recherche dans lequel s'incrit le stage : le traitement automatique des langues parlées, puis plus particulièrement la traduction automatique. Elle est essentiellement bibliographique.
+Cette section présente le domaine de recherche dans lequel s'inscrit mon stage : le traitement automatique des langues parlées, puis plus particulièrement la traduction automatique. Elle est essentiellement bibliographique.
 
 \subsection{Traitement des langues parlées}
 
+Le traitement automatique des langues parlées, en anglais \emph{spoken language processing} (ou encore linguistique automatique, \emph{computational linguistics}) est une discipline à l'intersection de l'informatique, de la linguistique, des sciences cognitives. Son objet est l'étude et l'utilisation des langues naturelles avec des outils informatiques.
 
-
-
-
+Ses applications sont nombreuses. On peut citer le traitement du signal pour la simulation et la reconnaissance vocale, les interfaces homme/machine, l'écriture automatique %article du Monde
+, et la traduction automatique.
 
 \subsection{Traduction automatique}
 
-La \emph{traduction automatique}, en anglais \emph{Machine translation}, a pour objet la traduction de textes d'une langue naturelle vers une autre, par l'intermédiaire d'algorithmes et d'ordinateurs (dans intervention humaine --- on parle sinon de \emph{traduction assistée par ordinateur}). Si l'on peut chercher les origines de cette discipline dans les langues universelles imaginées par Descartes et Leibniz au XVII\textsuperscript{e} siècle
+La \emph{traduction automatique}, en anglais \emph{machine translation}, a pour objet la traduction de textes d'une langue naturelle vers une autre, par l'intermédiaire d'algorithmes et d'ordinateurs (dans intervention humaine --- on parle sinon de \emph{traduction assistée par ordinateur}). Si l'on peut chercher les origines de cette discipline dans les langues universelles imaginées par Descartes et Leibniz au XVII\textsuperscript{e} siècle
 % $$$ ndbdp, citation
 , par le truchement desquelles on pourrait passer de n'importe quelle langue à n'importe quelle autre, c'est en 1947 que le mathématicien américain Warren Weaver propose pour la première fois d'utiliser les ordinateurs pour réaliser des travaux de traduction à l'UNESCO.
 % http://www.mt-archive.info/Weaver-1947-original.pdf
@@ -149,51 +160,54 @@ On appelle \emph{corpus multilingue} un ensemble de textes en plusieurs langues.
 
 \subsection{L'algorithme}
 
-%\begin{algorithm}
-%\caption{kruskal \label{kruskal}}
-%
-%\SetKwData{g}{g}\SetKwData{arbre}{arbre}\SetKwData{nun}{n1}\SetKwData{ndeux}{n2}\SetKwData{nbN}{g.nbN}\SetKwData{ares}{ares}
-%\SetKwFunction{fonction}{fonction}
-%\Entree{un graphe $\g=(V,E,I)$, complet (certaines arêtes peuvent représenter des plus courts chemins).}
-%\Sortie{\arbre, arbre couvrant de \g de poids minimal.}
+\subsubsection{(bis)}
 
-%\Debut
-%{
-%$E_{libres} \leftarrow E_{|I}$ \Et $E_{traitées} \leftarrow \varnothing$ \\
-%$\arbre \leftarrow \varnothing$
+\begin{algorithm}
+\caption{anymalign \label{algoanym}}
 
-%\TantQue {$E_{libres} \neq \varnothing$}
-%{
-%$a_{min} \leftarrow$ \emph{arête de $E_{libres}$ de poids minimal} \\
-%$E_{libres} \leftarrow E_{libres}~\textbackslash~\{a_{min}\}$ \Et $E_{traitées} \leftarrow E_{traitées} \cup \{a_{min}\}$ \\
-%\Si {$(a_{min}.chemin[0].chef) \neq (a_{min}.chemin[a_{min}.longueur-1].chef)$}
-%{
-%\Pour{toute sous-arête $(s_i,s_{i+1})$ de $a_{min}$}
-%{
-%\Si{$(s_i,s_{i+1}) \notin \arbre$}
-%{
-%$\arbre \leftarrow (\arbre \cup \{(s_i,s_{i+1})\})$ \\
-%\Pour{tout sommet $s$ de même que chef que $s_{i+1}$}
-%{
-%$s.chef \leftarrow (a_{min}.chemin[0].chef)$
-%}
-%\Pour{toute arête $v$ de $E_{libres}$}
-%{
-%\Si{$(s_i,s_{i+1})$ est une sous-arête de $v$}
-%{
-%$v.poids \leftarrow (v.poids - (s_i,s_{i+1}).poids)$
-%}
-%}
-%}
-%}
-%}
-%}
-%\Retour \arbre
-%}
-%\end{algorithm}
+\SetKwData{g}{g}\SetKwData{arbre}{arbre}\SetKwData{nun}{n1}\SetKwData{ndeux}{n2}\SetKwData{nbN}{g.nbN}\SetKwData{ares}{ares}
+\SetKwData{Cu}{C$_1$}
+\SetKwData{Cn}{C$_n$}
+\SetKwData{AlC}{Alignements}
+\SetKwData{iii}{i}
+\SetKwData{jjj}{j}
+\SetKwData{kkk}{k}
+\SetKwData{N}{N}
+\SetKwData{Sub}{S}
+\SetKwFunction{fonction}{fonction}
+\Entree{Corpus parallèle (\Cu, \dots, \Cn).}
+\Sortie{Table d'alignements \AlC.}
 
+\Debut
+{
+	\Pour{\iii de $1$ à \N}
+	{
+		\Sub $\leftarrow$ sous-corpus de taille $|\Sub|$
 
-% Classification & short description
+		\Pour{\jjj de $1$ à \k}
+		{
+			\PourTout{\jjj-gram dans \Sub}
+			{
+				Calculer son profil (vecteur de présence)
+
+				L'ajouter dans la table \$\$\$
+			}
+		}
+	}
+	\Retour \AlC
+}
+\end{algorithm}
+
+\subsubsection{Exemple}
+% $$$ Exemple !!
+
+\subsubsection{Remarques}
+% Raffinement n-grams
+
+Tel que présenté ici, l'algorithme termine après $N$ itérations ; en réalité, dans l'implémentation qui en a été faite, de nombreuses conditions d'interruption différentes peuvent être utilisées : après un certain temps, lorsque le nombre d'alignements par secondes devient inférieur à une certain borne, ou encore par une interruption manuelle de l'utilisateur.
+
+\anym~est comme on le voit un algorithme statistique, qui utilise le seul corpus parallèle (et aucune donnée linguistique) ; c'est en outre un algorithme complètement symétrique : tous les corpus $C_i$ jouent le même rôle. Pour cette raison, on peut se contenter pour l'analyse de deux corpus $C_1$ et $C_2$, mais il s'agit évidemment d'une qualité importante de l'algorithme.
+
 
 \subsection{Qualités et défauts}
 (L'analyse déjà réalisée)
@@ -201,10 +215,104 @@ On appelle \emph{corpus multilingue} un ensemble de textes en plusieurs langues.
 
 \section{Mesures d'association}
 
+Dans cette section, après avoir introduit la notion de \emph{mesure d'association} en statistiques, je compare les résultats empiriques fournis par \anym~avec différentes mesures d'association classiques.
+
 \subsection{Topo sur les mesures d'association}
 
-\subsection{Comparaison avec anymalign}
-Exploitation des graphiques
+En statistiques, on appelle \emph{mesure d'association} une relation entre plusieurs variables aléatoires non-indépendantes. Le terme est proche de celui de \emph{corrélation} même si ce dernier a une défition plus contrainte, impliquant notamment d'un \emph{facteur de corrélation}.
+
+En théorie de l'information, il s'agit le plus souvent de comparer deux variables aléatoires $X$ et $Y$. Notons $e$ et $f$ les événements $X \in E$ et $Y \in F$. Les mesures d'association entre $X$ et $Y$ utiliseront généralement les valeurs de la table de contingence ($\mathfrak{F}(e)$ désigne la fréquence de l'événement $e$ dans un espace de taille totale $N$) :
+
+\begin{tabular}{|cc|c|}
+\hline
+$a := \mathfrak{F}(e\wedge f)$ & b := $\mathfrak{F}(e\wedge\overline{f})$ & $\mathfrak{F}(e)$ \\
+$c := \mathfrak{F}(\overline{e}\wedge f)$ & $d := \mathfrak{F}(\overline{e}\wedge\overline{e})$ & $\mathfrak{F}(\overline{e})$ \\
+\hline
+$\mathfrak{F}(f)$ & $\mathfrak{F}(\overline{f})$ & $N$ \\
+\hline
+\end{tabular}
+
+% Flou : fréquences, probabilités... $$$
+
+Ici, $X$ et $Y$ seront des mots ; $E$ et $F$ désigneront les phrases alignées d'un corpus parallèle de taille $N$. On mesurera donc l'association de deux mots à travers la probabilité qu'ils apparaissent dans les mêmes phrases ($a$), le premier mais pas le deuxième ($b$), etc.
+
+Les mesures utilisées sont listées dans le tableau suivant (les noms sont donnés en anglais car certains n'ont pas d'équivalent français) :
+
+\begin{tabular}{|l|l|}
+\hline
+Nom & Formule \\
+\hline
+Likelihood ratio ou $G^2$ &
+ $2\left(a\log\left(\frac{aN}{(a+b)(a+c)}\right) +b\log\left(\frac{bN}{(a+b)(b+d)}\right) +c\log\left(\frac{cN}{(a+c)(c+d)}\right) +d\log\left(\frac{dN}{(b+d)(c+d)}\right)\right)$ % $$$
+\\
+
+Pointwise mutual information (PMI)  & $\log_2(\frac{N\cdot a}{(a+b)(a+c)})$ \\
+
+$\Phi^2$ de Church \& Gale & $\frac{(ad-bc)^2}{(a+b)(a+c)(b+d)(c+d)}$ \\
+
+Coefficient $Q$ de Yule & $\frac{ad-bc}{ad+bc}$ \\
+
+Coefficient $\omega$ de Yule & $\frac{\sqrt{ad}-\sqrt{bc}}{\sqrt{ad}+\sqrt{bc}}$ \\
+
+% Odds ratio & $\frac{ad}{bc}$ \\
+
+Jaccard & $\frac{a}{a+b+c}$ \\
+
+Normalized expectation & $\frac{2a}{2a+b+c}$ \\
+% Ne donner que les noms en anglais ? +redondant Jaccard
+
+Salience & $\log\left(\frac{aN}{(a+b)(a+c)}\right)\cdot\log(a)$  \\
+% redondant PMI?
+
+t test & $\frac{a-\frac{(a+b)(a+c)}{N}}{\sqrt{a(1-\frac{a}{N})}}$ \\   %$$$
+
+z score & $\frac{a-\frac{(a+b)(a+c)}{N}}{\sqrt{\frac{(a+b)(a+c)}{N}(1-\frac{(a+b)(a+c)}{N^2})}}$ \\ %$$$
+
+\emph{Braun-Blanquet} & $\frac{a}{\max(a+b,a+c)}$ \\
+
+\emph{Simpson} & $\frac{a}{\min(a+b,a+c)}$ \\
+
+\emph{Laplace} & $\frac{a+1}{\min(b,c)+a+2}$ \\
+
+\hline
+\end{tabular}
+
+% Viennent de [] et [] $$$
+% Equivalences [] $$$
+
+On constate une grande diversité dans ces mesures, permise par la définition assez laxiste. Le principe est que la mesure est d'autant plus élevée que les les variables aléatoires sont dépendantes suivant un certain schéma. Notre objectif est de montrer que les paires de mots fréquemment alignées par \anym~ont une association forte. Il s'agit donc de comparer deux mesures d'association, puisque \anym~en réalise aussi une, quoique plus compliquée que les précédentes. En effet, le rapport du nombre de fois qu'un couple de mots est aligné par le nombre d'itérations converge vers la probabilité que ce couple ait le même profil dans un sous-corpus tiré aléatoirement.
+
+\subsection{Comparaison avec \anym}
+
+Dans cette partie, on compare les résultats d'\anym~ avec les mesures d'association listées précédemment.
+
+\subsubsection{\anym}
+
+Ces résultats ont été obtenus en traitant un corpus français-anglais de 1000 lignes extrait d'Europarl % $$$
+. L'exécution d'\anym~a été interrompue après de 2 200 000 itérations ; le nombre de nouveaux alignements par seconde était alors inférieur à 1 ; un peu plus de 45 000 paires de mots ont ainsi été alignées.
+
+Les paires les plus alignées correspondent aux mots-outils, très fréquents :
+
+\begin{tabular}{|l|l|l|}
+\hline
+Français & Anglais & Nombre d'alignements \\
+\hline
+. & . & 6185271 \\
+et & and & 394766 \\
+je & I & 330634 \\
+rapport & report & 329316 \\
+Commission & Commission & 286020 \\
+concurrence & competition & 277991 \\
+\hline
+\end{tabular}
+
+Les alignements erronés les plus fréquents font eux aussi intervenir des mots-outils, présents dans une grande majorité des phrases ; le premier d'entre eux est (\guill{.},\guill{the}), au 103\textsuperscript{e} rang avec 25031 alignements.
+
+1451 mots sont alignés plus de 1000 fois, 8266 mots plus 100 fois, 28264 mots plus de 10 fois.
+
+\subsubsection{Jaccard}
+
+\subsubsection{PMI}
 
 
 \section{Analyse théorique}
