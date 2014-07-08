@@ -13,6 +13,7 @@
 \usepackage{color}
 \usepackage{calc}
 \usepackage[boxruled,vlined,french]{algorithm2e}
+\usepackage{setspace}
 
 \setlength{\voffset}{-3.75cm}
 \setlength{\hoffset}{-2.6cm}
@@ -161,19 +162,24 @@ On appelle \emph{corpus multilingue} un ensemble de textes en plusieurs langues.
 \subsubsection{(bis)}
 
 \begin{algorithm}
+\setstretch{1.5}
 \caption{anymalign \label{algoanym}}
 
 \SetKwData{g}{g}\SetKwData{arbre}{arbre}\SetKwData{nun}{n1}\SetKwData{ndeux}{n2}\SetKwData{nbN}{g.nbN}\SetKwData{ares}{ares}
 \SetKwData{Cu}{C$_1$}
 \SetKwData{Cn}{C$_n$}
+\SetKwData{Wu}{w$_{n_1}$}
+\SetKwData{Wn}{w$_{n_k}$}
 \SetKwData{AlC}{Alignements}
 \SetKwData{iii}{i}
 \SetKwData{jjj}{j}
-\SetKwData{kkk}{k}
+\SetKwData{www}{w}
+\SetKwData{J}{J}
 \SetKwData{N}{N}
 \SetKwData{Sub}{S}
-\SetKwFunction{fonction}{fonction}
-\Entree{Corpus parallèle (\Cu, \dots, \Cn).}
+\SetKwData{Profils}{Profils}
+\SetKwFunction{ajouter}{ajouter}
+\Entree{Corpus parallèle $(\Cu, \dots, \Cn)$.}
 \Sortie{Table d'alignements \AlC.}
 
 \Debut
@@ -182,19 +188,36 @@ On appelle \emph{corpus multilingue} un ensemble de textes en plusieurs langues.
 	{
 		\Sub $\leftarrow$ sous-corpus de taille $|\Sub|$
 
-		\Pour{\jjj de $1$ à \k}
+		\Pour{\jjj de $1$ à \J}
 		{
-			\PourTout{\jjj-gram dans \Sub}
+			\PourTout{\jjj-gram \www dans \Sub}
 			{
-				Calculer son profil (vecteur de présence)
+				Calculer son profil (vecteur de présence) \\
+				\ajouter$(\www,\Profils)$
+			}
 
-				L'ajouter dans la table \$\$\$
+			\PourTout{profil dans \Profils}
+			{
+				\PourTout{groupe de mots $(\Wu,\dots,\Wn)$}
+				{
+
+					$\AlC[(\Wu,\dots,\Wn)]$ ++
+				}
 			}
 		}
 	}
 	\Retour \AlC
 }
 \end{algorithm}
+
+La fonction auxiliaire $ajouter$ incorpore le mot $w$ dans la table $Profils$, initialement vide, de telle sorte que :
+
+\begin{itemize}
+\item si $Profils$ contient déjà $w'\subset w$ de même profil que $w$, alors $w'$ est écrasé par $w$ ;
+\item si plusieurs segments d'un même texte ont le même profil, ils sont finalement tous rejetés.
+\end{itemize}
+
+% Mouais, c'est globalement moyen. $$$
 
 \subsubsection{Exemple}
 % $$$ Exemple !!
@@ -244,7 +267,10 @@ Likelihood ratio ou $G^2$ &
  $2\left(a\log\left(\frac{aN}{(a+b)(a+c)}\right) +b\log\left(\frac{bN}{(a+b)(b+d)}\right) +c\log\left(\frac{cN}{(a+c)(c+d)}\right) +d\log\left(\frac{dN}{(b+d)(c+d)}\right)\right)$ % $$$
 \\
 
-Pointwise mutual information (PMI)  & $\log_2(\frac{N\cdot a}{(a+b)(a+c)})$ \\
+Pointwise % $$$ ?
+ mutual information (PMI)  & $\log_2(\frac{N\cdot a}{(a+b)(a+c)})$ \\
+
+%& $\sum_{x=e,\overline{e}}\sum_{y=f,\overline{f}}\mathfrak{F}(x\wedge y)\log\left(\frac{\mathfrak{F}(x\wedge y)}{\mathfrak{F}(x)\mathfrak{F}(y)}\right)$ \\
 
 $\Phi^2$ de Church \& Gale & $\frac{(ad-bc)^2}{(a+b)(a+c)(b+d)(c+d)}$ \\
 
@@ -257,7 +283,7 @@ Coefficient $\omega$ de Yule & $\frac{\sqrt{ad}-\sqrt{bc}}{\sqrt{ad}+\sqrt{bc}}$
 Jaccard & $\frac{a}{a+b+c}$ \\
 
 Normalized expectation & $\frac{2a}{2a+b+c}$ \\
-+redondant Jaccard?
+%+redondant Jaccard?
 
 Salience & $\log\left(\frac{aN}{(a+b)(a+c)}\right)\cdot\log(a)$  \\
 % redondant PMI?
@@ -266,11 +292,11 @@ t test & $\frac{a-\frac{(a+b)(a+c)}{N}}{\sqrt{a(1-\frac{a}{N})}}$ \\   %$$$
 
 z score & $\frac{a-\frac{(a+b)(a+c)}{N}}{\sqrt{\frac{(a+b)(a+c)}{N}(1-\frac{(a+b)(a+c)}{N^2})}}$ \\ %$$$
 
-\emph{Braun-Blanquet} & $\frac{a}{\max(a+b,a+c)}$ \\
+Braun-Blanquet & $\frac{a}{\max(a+b,a+c)}$ \\
 
-\emph{Simpson} & $\frac{a}{\min(a+b,a+c)}$ \\
+Simpson & $\frac{a}{\min(a+b,a+c)}$ \\
 
-\emph{Laplace} & $\frac{a+1}{\min(b,c)+a+2}$ \\
+Laplace & $\frac{a+1}{\min(b,c)+a+2}$ \\
 
 \hline
 \end{tabular}
@@ -308,16 +334,100 @@ Les alignements erronés les plus fréquents font eux aussi intervenir des mots-
 
 1451 mots sont alignés plus de 1000 fois, 8266 mots plus 100 fois, 28264 mots plus de 10 fois.
 
+Le critère de comparaison qui a été retenu pour comparer \anym~aux autres mesures d'association est le nombre d'alignements produits. % D'autres ont été envisagées (notamment le \emph{score}) $$$
+
 \subsubsection{Jaccard}
 
+L'une des mesures d'association produisant les meilleurs résultats est le Jaccard dont on rappelle l'expression : $Jacc(e,f)=\frac{\mathfrak{F}(e\wedge f)}{\mathfrak{F}(e\wedge f)+\mathfrak{F}(e\wedge\overline{f})+\mathfrak{F}(\overline{e}\wedge f)}$ ou, si l'on note $E$ (resp. $F$) l'ensemble des phrases où apparaît $e$ (resp. $f$) : $Jacc(e,f)=\frac{E\cap F}{E\cup F}$.
+
+La figure \ref{jaccard} montre le nombre d'alignements % échelle log
+ réalisés par \anym~en fonction du Jaccard. On y observe une association importante : 
+% Il faudrait peut-être étoffer ça d'une régression linéaire ? Je ne sais pas faire...
+pour $j$ fixé, les couples de mots de Jaccard proche de $j$ les plus alignés le sont d'un nombre proche de $C\cdot j$ ($C$ une constante, ici égale à % $$$
+, mais qui est de peu d'importance puisqu'elle dépend de la durée d'exécution de l'algorithme.) Ainsi, l'absence de points dans les coins supérieur gauche (les paires d'association faible sont peu alignées) et inférieur droit (les paires de forte association sont beaucoup alignées) valident l'algorithme.
+
+En revanche, l'épaisseur de la courbe, en d'autres termes le grand nombre de points situés en-dessous de la courbe $y = C\cdot x$ montre une variation importante dans les alignements réalisés par \anym~pour des mots de même Jaccard
+% $$$ quantifier ça...
+
+\begin{figure}[t]
+\centering
+\label{jaccard}
+\includegraphics[width=12cm]{jacclog.png} % $$$ Penser à relooker (plus grand, échelle log au lieu de log, pas "../../moy/...")
+\caption{LEGENDE} % $$$
+\end{figure}
+
+Ces résultats montrent une ressemblance importante entre les résultats d'\anym~et le Jaccard ; l'algorithme en donne une estimation
+% $$$ je ne sais décidément pas chiffrer ces choses-là...
+% $$$ glisser une remarque sur la complexité (échantillonnage versus n²)
+On aurait cependant espéré une proximité encore supérieure : la motivation de ces travaux se trouve dans % [] Broder, à expliquer.
+
+% Autres mesures qui donnent un résultat proche (Annexe) : Braun-Blanquet, Laplace, Normalized expectation, Simpson, t test $$$
+
 \subsubsection{PMI}
+% Du coup je ne sais pas vraiment ce que c'est !!
+% \log_2(Na/((a+b)(a+c))) = log_2(P(xy)/(P(x)P(y)))
+
+
+
+\begin{figure}[t]
+\centering
+\label{im}
+\includegraphics[width=12cm]{imlog.png} % $$$ Penser à relooker (plus grand, échelle log au lieu de log, pas "../../moy/...")
+\caption{LEGENDE} % $$$
+\end{figure}
+
+% Autres mesures qui donnent un résultat proche (Annexe) : Rawim (?), Yule's omega, Yule's Q, Salience $$$
+
+\subsubsection{Conclusion}
 
 
 \section{Analyse théorique}
 
+Dans cette partie, on cherche à analyser \anym~à l'aide de quelques calculs de probabilités.
+
+La notion qu'il m'a paru intéressant d'étudier est celle de profil, qui est intrinsèquement liée au fonctionnement d'\anym.
+
+On considère un sous-corpus quelconque $S$, composé de $|S|$ phrases parallèles dont on fera l'hypothèse simplificatrice qu'elles sont toutes de longueur $m$. Soient $\Pi$ un profil (c'est-à-dire un élément de $\{0;1\}^{|S|}$), et $w$ un mot de fréquence $f$.
+
+Notons $\mathcal{P}_{w,\Pi}$ la probabilité que $w$ ait le profil $\Pi$ dans $S$
+% \footnote{On s'intéresse ici aux paramètres $f$ et $|\Pi|$ ; il pourra être intéressant par la suite d'étudier les variations de la taille du corpus, $|S|$ et $m$.}
+. La longueur des phrases étant constante, elle ne dépend que de $|\Pi|$ ; c'est la probabilité que $w$ apparaisse au moins une fois dans exactement $|\Pi|$ des $|S|$ phrases du sous-corpus. En faisant l'hypothèse que les mots sont tirés au hasard d'après leur seule fréquence, la probabilité que $w$ n'apparaisse pas dans une phrase donnée est $(1-f)^m$ et donc
+
+\begin{align*}
+\mathcal{P}_{w,\Pi} & = (1-f)^{m(|S|-|\Pi|)} \cdot (1-(1-f)^m)^{|\Pi|} \\
+				& = (1-f)^{m|S|}\cdot\left[(1-f)^{-m}-1\right]^{|\Pi|}
+\end{align*}
+
+Soient maintenant $w$ et $w'$ deux mots de fréquences respectives $f$ et $g$. Notons $\mathcal{A}_{w,w'}$ la probabilité que ces deux mots aient le même profil et $\check{\mathcal{A}}_{w,w'}$ la probabilité que ces deux mots aient le même profil \emph{non-nul} dans $S$.
+
+On a alors sous \emph{l'hypothèse que $w$ et $w'$ sont indépendants} :
+
+\begin{align*}
+	P[\pi(w)=\pi(w')] % $$$
+	& = \sum_{\Pi~profil}P[\pi(w)=\Pi\wedge\pi(w')=\Pi] \\
+	& = \sum_{\Pi~profil}P[\pi(w)=\Pi]\cdot P[\pi(w')=\Pi] \\
+	& = \sum_{\Pi~profil}(1-f)^{m|S|}\cdot((1-f)^{-m}-1)^{\Pi}
+		\cdot(1-g)^{m|S|}\cdot((1-g)^{-m}-1)^{\Pi} \\
+	& = \sum_{\Pi~profil}[(1-f)(1-g)]^{m|S|}
+		\cdot[((1-f)^{-m}-1)((1-g)^{-m}-1)] \\
+	& = \sum_{k=0}^{|S|}~\sum_{|\Pi|=k} [(1-f)(1-g)]^{m|S|}
+		\cdot[((1-f)(1-g))^{-m}-(1-f)^{-m}-(1-g)^{-m}+1]^{|\Pi|} \\
+	& = \sum_{k=0}^{|S|}\binom{|S|}{k} [(1-f)(1-g)]^{m|S|}
+		\cdot[((1-f)(1-g))^{-m}-(1-f)^{-m}-(1-g)^{-m}+1]^k \\
+	& = [(1-f)(1-g)]^{m|S|}
+		\cdot[((1-f)(1-g))^{-m}-(1-f)^{-m}-(1-g)^{-m}+2]^{|S|} \\
+	& = [1-(1-f)^m-(1-g)^m+2(1-f)^m(1-g)^m]^{|S|}
+\end{align*}
+
+et % $$$
+
+
+
 \subsection{Alignement de e et f}
 
 \subsection{Alignement de n-grams}
+
+\subsection{Autres pistes}
 
 
 \section{Conclusion}
