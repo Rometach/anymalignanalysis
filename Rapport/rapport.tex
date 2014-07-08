@@ -1,5 +1,3 @@
-
-
 \documentclass[a4paper,10pt]{article}
 
 \usepackage[english,french]{babel}
@@ -105,9 +103,9 @@ La discipline a depuis fait des progrès considérables. Ses motivations, dével
 %http://www.hutchinsweb.me.uk/PPF-1.pdf
 sont nombreuses. Il évoque la nécessité dans certaines professions de consulter des documents rédigés dans des langues très diverses, la simplification de la transmission des savoirs, des applications militaires, mais aussi des raisons plus idéologiques : la traduction permet la communication et donc la paix. Notons que la traduction automatique ne fait pas concurrence aux traducteurs humains, qui s'adressent à un public différent. Sa vocation n'est pas de réaliser des traductions littéraires ou des traductions parfaites, mais de rendre accessible, rapidement et à moindre coût, une très grande quantité de documents à des locuteurs de toutes les langues.
 
-La traduction est un exercice considéré difficile depuis longtemps. \guill{Traduttore, traditore} disent les italiens : \guill{Traduire, c'est trahir}. Les ordinateurs n'ont pas des prétentions si élevées que celle de transmettre fidèlement la pensée de l'auteur original ; ils doivent cependant relever toutes sortes de défis. Ainsi l'idée naïve d'une traduction mot à mot à l'aide d'un simple dictionnaire bilingue produit-elle de très mauvais résultats, parce qu'un mot dans une langue peut se traduire par plusieurs dans une autre (\emph{Rindfleischetikettierungsüberwachungsaufgavenübertragungsgesetz} est ainsi l'équivalent allemand de \emph{loi sur le transfert des obligations de surveillance de l'étiquetage de la viande bovine} en français, soit 1 mot contre 15), parce que la polysémie ou l'homonymie ne sont pas prises en compte (faut-il traduire \emph{avocat} par \emph{avocado} ou \emph{lawyer} ? \emph{cut} par \emph{couper}, par \emph{coupé}, par \emph{coupions} ?), non plus que les idiomes (\emph{Das ist nicht mein Bier} doit être traduit par \emph{Ce ne sont pas mes oignons} et non littérallement par \emph{Ce n'est pas ma bière}), etc.
+La traduction est un exercice considéré difficile depuis longtemps. \guill{Traduttore, traditore} disent les italiens : \guill{Traduire, c'est trahir}. Les ordinateurs n'ont pas des prétentions si élevées que celle de transmettre fidèlement la pensée de l'auteur original ; ils doivent cependant relever toutes sortes de défis. Ainsi l'idée naïve d'une traduction mot à mot à l'aide d'un simple dictionnaire bilingue produit-elle de très mauvais résultats, parce qu'un mot dans une langue peut se traduire par plusieurs dans une autre (\emph{Rindfleischetikettierungsüberwachungsaufgavenübertragungsgesetz} est ainsi l'équivalent allemand de \emph{loi sur le transfert des obligations de surveillance de l'étiquetage de la viande bovine} en français, soit 1 mot contre 15), parce que la polysémie ou l'homonymie ne sont pas prises en compte (faut-il traduire \emph{avocat} par \emph{avocado} ou \emph{lawyer} ? \emph{cut} par \emph{couper}, par \emph{coupé}, par \emph{coupions} ?), non plus que les idiomes (\emph{Das ist nicht mein Bier} doit être traduit par \emph{Ce ne sont pas mes oignons} et non littéralement par \emph{Ce n'est pas ma bière}), etc.
 
-Bon nombre d'outils de traduction automatique ont été développés, les plus connus étant Google translate et SYSTRAN (utilisé par Yahoo et BabelFish). Les approches sont nombreuses, elles peuvent s'appuyer ou non sur des outils d'analyse linguistique, être unilatéralse ou bilatérales, statistiques ou non\dots
+Bon nombre d'outils de traduction automatique ont été développés, les plus connus étant Google translate et SYSTRAN (utilisé par Yahoo et BabelFish). Les approches sont nombreuses, elles peuvent s'appuyer ou non sur des outils d'analyse linguistique, être unilatérale ou bilatérales, statistiques ou non\dots
 % Liens ; statistiques ? $$$
 
 Les algorithmes qui nous intéressent plus particulièrement ici ne sont pas des algorithmes de traduction pure mais des algorithmes d'\emph{alignement}, qui génèrent des données pour les premiers en analysant des corpus édités en plusieurs langues. On cite souvent l'exemple de Champollion qui apprit à déchiffrer les hiéroglyphes grâce à la pierre de Rosette. Les algorithmes d'alignement utilisent ainsi des corpus multilingues --- dont il existe grâce à Internet de grandes quantités --- pour en extraire des relations de traduction entre des paires de mot. Le plus utilisé est Giza++.
@@ -120,18 +118,18 @@ Les algorithmes qui nous intéressent plus particulièrement ici ne sont pas des
 
 % Berkeley Word Aligner, Nile, ...
 
-Le stage que j'ai effectué portait sur l'analyse d'un algorithme d'alignement par échantillonage, \anym, développé par Adrien Lardilleux.
+% Le stage que j'ai effectué portait sur l'analyse d'un algorithme d'alignement par échantillonnage, \anym, développé par Adrien Lardilleux.
 
 
 \subsection{Quelques définitions et notations}
 
 Avant d'étudier plus avant \anym, il convient de poser quelques définitions.
 
-Dans un texte en langue naturelle, on appelle \emph{segment} (\emph{phrase} en anglais) un ensemble de mots. On appelera en outre $n$-gramme un segment de $n$ mots consécutifs.
+Dans un texte en langue naturelle, on appelle \emph{segment} (\emph{phrase} en anglais) un ensemble de mots. On appellera en outre $n$-gramme un segment de $n$ mots consécutifs.
 
 On appelle \emph{corpus multilingue} un ensemble de textes en plusieurs langues. On appelle \emph{corpus parallèle} un corpus multilingue dont les textes sont traduction les uns des autres. Enfin, un corpus parallèle est \emph{aligné} lorsque sont déterminées des relations (de traduction) entre segments de ses textes.
 
-\anym~considère des corpus parallèles de taille arbitraire alignés au niveau des phrases, et construit un dictionnaire d'alignements de segments plus petits. On limitera ici notre analyse à des corpus de deux seulement textes, qu'on appelera \emph{texte source} et \emph{texte cible}
+\anym~considère des corpus parallèles de taille arbitraire alignés au niveau des phrases, et construit un dictionnaire d'alignements de segments plus petits. On limitera ici notre analyse à des corpus de deux seulement textes, qu'on appellera \emph{texte source} et \emph{texte cible}
 % ; un mot ou segment du texte source sera généralement noté $e$ (comme \emph{english}) et du texte cible $f$ (comme \emph{french} ou \emph{foreign})
 .
 
@@ -219,7 +217,7 @@ Dans cette section, après avoir introduit la notion de \emph{mesure d'associati
 
 \subsection{Topo sur les mesures d'association}
 
-En statistiques, on appelle \emph{mesure d'association} une relation entre plusieurs variables aléatoires non-indépendantes. Le terme est proche de celui de \emph{corrélation} même si ce dernier a une défition plus contrainte, impliquant notamment d'un \emph{facteur de corrélation}.
+En statistiques, on appelle \emph{mesure d'association} une relation entre plusieurs variables aléatoires non-indépendantes. Le terme est proche de celui de \emph{corrélation} même si ce dernier a une définition plus contrainte, impliquant notamment d'un \emph{facteur de corrélation}.
 
 En théorie de l'information, il s'agit le plus souvent de comparer deux variables aléatoires $X$ et $Y$. Notons $e$ et $f$ les événements $X \in E$ et $Y \in F$. Les mesures d'association entre $X$ et $Y$ utiliseront généralement les valeurs de la table de contingence ($\mathfrak{F}(e)$ désigne la fréquence de l'événement $e$ dans un espace de taille totale $N$) :
 
@@ -259,7 +257,7 @@ Coefficient $\omega$ de Yule & $\frac{\sqrt{ad}-\sqrt{bc}}{\sqrt{ad}+\sqrt{bc}}$
 Jaccard & $\frac{a}{a+b+c}$ \\
 
 Normalized expectation & $\frac{2a}{2a+b+c}$ \\
-% Ne donner que les noms en anglais ? +redondant Jaccard
++redondant Jaccard?
 
 Salience & $\log\left(\frac{aN}{(a+b)(a+c)}\right)\cdot\log(a)$  \\
 % redondant PMI?
@@ -331,6 +329,8 @@ Les alignements erronés les plus fréquents font eux aussi intervenir des mots-
 \bibliography{mabiblio}
 
 \section{Annexes}
+
+% Autres figures
 
 \end{document}
 
