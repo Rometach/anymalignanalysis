@@ -175,7 +175,7 @@ On appelle \emph{corpus multilingue} un ensemble de textes en plusieurs langues.
 \SetKwData{jjj}{j}
 \SetKwData{www}{w}
 \SetKwData{J}{J}
-\SetKwData{N}{N}
+\SetKwData{I}{I}
 \SetKwData{Sub}{S}
 \SetKwData{Profils}{Profils}
 \SetKwFunction{ajouter}{ajouter}
@@ -184,7 +184,7 @@ On appelle \emph{corpus multilingue} un ensemble de textes en plusieurs langues.
 
 \Debut
 {
-	\Pour{\iii de $1$ à \N}
+	\Pour{\iii de $1$ à \I}
 	{
 		\Sub $\leftarrow$ sous-corpus de taille $|\Sub|$
 
@@ -225,9 +225,9 @@ La fonction auxiliaire $ajouter$ incorpore le mot $w$ dans la table $Profils$, i
 \subsubsection{Remarques}
 % Raffinement n-grams
 
-Tel que présenté ici, l'algorithme termine après $N$ itérations ; en réalité, dans l'implémentation qui en a été faite, de nombreuses conditions d'interruption différentes peuvent être utilisées : après un certain temps, lorsque le nombre d'alignements par secondes devient inférieur à une certain borne, ou encore par une interruption manuelle de l'utilisateur.
+Tel que présenté ici, l'algorithme termine après $I$ itérations ; en réalité, dans l'implémentation qui en a été faite, de nombreuses conditions d'interruption différentes peuvent être utilisées : après un certain temps, lorsque le nombre d'alignements par secondes devient inférieur à une certain borne, ou encore par une interruption manuelle de l'utilisateur.
 
-\anym~est comme on le voit un algorithme statistique, qui utilise le seul corpus parallèle (et aucune donnée linguistique) ; c'est en outre un algorithme complètement symétrique : tous les corpus $C_i$ jouent le même rôle. Pour cette raison, on peut se contenter pour l'analyse de deux corpus $C_1$ et $C_2$, mais il s'agit évidemment d'une qualité importante de l'algorithme.
+\anym~est comme on le voit un algorithme statistique, dont l'exécution ne dépend pas de la taille du corpus ; il  utilise les seuls textes parallèles (et aucune donnée linguistique) ; c'est en outre un algorithme complètement symétrique : tous les corpus $C_i$ jouent le même rôle. Pour cette raison, on peut se contenter pour l'analyse de deux corpus $C_1$ et $C_2$, mais il s'agit évidemment d'une qualité importante de l'algorithme.
 
 
 \subsection{Qualités et défauts}
@@ -242,7 +242,7 @@ Dans cette section, après avoir introduit la notion de \emph{mesure d'associati
 
 En statistiques, on appelle \emph{mesure d'association} une relation entre plusieurs variables aléatoires non-indépendantes. Le terme est proche de celui de \emph{corrélation} même si ce dernier a une définition plus contrainte, impliquant notamment d'un \emph{facteur de corrélation}.
 
-En théorie de l'information, il s'agit le plus souvent de comparer deux variables aléatoires $X$ et $Y$. Notons $e$ et $f$ les événements $X \in E$ et $Y \in F$. Les mesures d'association entre $X$ et $Y$ utiliseront généralement les valeurs de la table de contingence ($\mathfrak{F}(e)$ désigne la fréquence de l'événement $e$ dans un espace de taille totale $N$) :
+En théorie de l'information, il s'agit le plus souvent de comparer deux variables aléatoires $X$ et $Y$. Notons $e$ et $f$ les événements $X \in E$ et $Y \in F$. Les mesures d'association entre $X$ et $Y$ utiliseront généralement les valeurs de la table de contingence ($\mathfrak{F}(e)$ désigne la fréquence absolue de l'événement $e$ dans un effectif de taille totale $N$) :
 
 \begin{tabular}{|cc|c|}
 \hline
@@ -252,8 +252,6 @@ $c := \mathfrak{F}(\overline{e}\wedge f)$ & $d := \mathfrak{F}(\overline{e}\wedg
 $\mathfrak{F}(f)$ & $\mathfrak{F}(\overline{f})$ & $N$ \\
 \hline
 \end{tabular}
-
-% Flou : fréquences, probabilités... $$$
 
 Ici, $X$ et $Y$ seront des mots ; $E$ et $F$ désigneront les phrases alignées d'un corpus parallèle de taille $N$. On mesurera donc l'association de deux mots à travers la probabilité qu'ils apparaissent dans les mêmes phrases ($a$), le premier mais pas le deuxième ($b$), etc.
 
@@ -268,7 +266,7 @@ Likelihood ratio ou $G^2$ &
 \\
 
 Pointwise % $$$ ?
- mutual information (PMI)  & $\log_2(\frac{N\cdot a}{(a+b)(a+c)})$ \\
+ mutual information (PMI)  & $\log_2(\frac{aN}{(a+b)(a+c)})$ \\
 
 %& $\sum_{x=e,\overline{e}}\sum_{y=f,\overline{f}}\mathfrak{F}(x\wedge y)\log\left(\frac{\mathfrak{F}(x\wedge y)}{\mathfrak{F}(x)\mathfrak{F}(y)}\right)$ \\
 
@@ -338,7 +336,7 @@ Le critère de comparaison qui a été retenu pour comparer \anym~aux autres mes
 
 \subsubsection{Jaccard}
 
-L'une des mesures d'association produisant les meilleurs résultats est le Jaccard dont on rappelle l'expression : $Jacc(e,f)=\frac{\mathfrak{F}(e\wedge f)}{\mathfrak{F}(e\wedge f)+\mathfrak{F}(e\wedge\overline{f})+\mathfrak{F}(\overline{e}\wedge f)}$ ou, si l'on note $E$ (resp. $F$) l'ensemble des phrases où apparaît $e$ (resp. $f$) : $Jacc(e,f)=\frac{E\cap F}{E\cup F}$.
+L'une des mesures d'association produisant les meilleurs résultats est le Jaccard dont on rappelle l'expression : $Jacc(e,f)=\frac{a}{a+b+c}=\frac{\mathfrak{F}(e\wedge f)}{\mathfrak{F}(e\wedge f)+\mathfrak{F}(e\wedge\overline{f})+\mathfrak{F}(\overline{e}\wedge f)}$ ou, si l'on note $E$ (resp. $F$) l'ensemble des phrases où apparaît $e$ (resp. $f$) : $Jacc(e,f)=\frac{E\cap F}{E\cup F}$.
 
 La figure \ref{jaccard} montre le nombre d'alignements % échelle log
  réalisés par \anym~en fonction du Jaccard. On y observe une association importante : 
@@ -367,7 +365,14 @@ On aurait cependant espéré une proximité encore supérieure : la motivation d
 % Du coup je ne sais pas vraiment ce que c'est !!
 % \log_2(Na/((a+b)(a+c))) = log_2(P(xy)/(P(x)P(y)))
 
+L'une des mesures d'association produisant les meilleurs résultats est l'Information Mutuelle (IM) % $$$
+ Jaccard dont on rappelle l'expression : $IM(e,f)=\log_2\left(\frac{aN}{(a+b)(a+c)}\right)=\log_2\left(\frac{\mathfrak{F}(e\wedge f)\cdot N}{\mathfrak{F}(e)\cdot\mathfrak{F}(f)}\right)$ (avec $N$ la taille totale du corpus).
 
+La figure \ref{jaccard} montre le nombre d'alignements % échelle log
+ réalisés par \anym~en fonction du Jaccard. On y observe une association importante : 
+% Il faudrait peut-être étoffer ça d'une régression linéaire ? Je ne sais pas faire...
+pour $j$ fixé, les couples de mots de Jaccard proche de $j$ les plus alignés le sont d'un nombre proche de $C\cdot j$ ($C$ une constante, ici égale à % $$$
+, mais qui est de peu d'importance puisqu'elle dépend de la durée d'exécution de l'algorithme.) Ainsi, l'absence de points dans les coins supérieur gauche (les paires d'association faible sont peu alignées) et inférieur droit (les paires de forte association sont beaucoup alignées) valident l'algorithme.
 
 \begin{figure}[t]
 \centering
@@ -376,9 +381,24 @@ On aurait cependant espéré une proximité encore supérieure : la motivation d
 \caption{LEGENDE} % $$$
 \end{figure}
 
+% \begin $$$
+- Dépend trop de la fréquence (mots rares à droite, mot fréquents à gauche).
+
+- A droite : log(N)=9,96 ; mots rares équivalents % $$$ il faudra dire que ça te tient pas compte des hapaxes !...
+
+- 0 et en-dessous : mots assez fréquents mais sans intérêt. Malheureusement, beaucoup d'alignements juste au-dessus de 0...
+
+- Les bons alignements entre mots fréquents sont entre 1 et 4 ; les bons alignements moyen
+
+- Bilan : sans invalider l'algorithme, le pic autour de 0 trahit la présence importante de "déchet"
+
+% \end $$$
+
 % Autres mesures qui donnent un résultat proche (Annexe) : Rawim (?), Yule's omega, Yule's Q, Salience $$$
 
 \subsubsection{Conclusion}
+
+% Autres mesures qui ne donnent que des fichus résultats $$$
 
 
 \section{Analyse théorique}
@@ -387,43 +407,59 @@ Dans cette partie, on cherche à analyser \anym~à l'aide de quelques calculs de
 
 La notion qu'il m'a paru intéressant d'étudier est celle de profil, qui est intrinsèquement liée au fonctionnement d'\anym.
 
-On considère un sous-corpus quelconque $S$, composé de $|S|$ phrases parallèles dont on fera l'hypothèse simplificatrice qu'elles sont toutes de longueur $m$. Soient $\Pi$ un profil (c'est-à-dire un élément de $\{0;1\}^{|S|}$), et $w$ un mot de fréquence $f$.
+On considère un sous-corpus quelconque $S$, composé de $|S|$ phrases parallèles dont on fera l'hypothèse simplificatrice qu'elles sont toutes de longueur $m$. Soient $\Pi$ un profil (c'est-à-dire un élément de $\{0;1\}^{|S|}$), et $w$ un mot de fréquence $\varphi$.
 
 Notons $\mathcal{P}_{w,\Pi}$ la probabilité que $w$ ait le profil $\Pi$ dans $S$
 % \footnote{On s'intéresse ici aux paramètres $f$ et $|\Pi|$ ; il pourra être intéressant par la suite d'étudier les variations de la taille du corpus, $|S|$ et $m$.}
-. La longueur des phrases étant constante, elle ne dépend que de $|\Pi|$ ; c'est la probabilité que $w$ apparaisse au moins une fois dans exactement $|\Pi|$ des $|S|$ phrases du sous-corpus. En faisant l'hypothèse que les mots sont tirés au hasard d'après leur seule fréquence, la probabilité que $w$ n'apparaisse pas dans une phrase donnée est $(1-f)^m$ et donc
+. La longueur des phrases étant constante, elle ne dépend que de $|\Pi|$ ; c'est la probabilité que $w$ apparaisse au moins une fois dans exactement $|\Pi|$ des $|S|$ phrases du sous-corpus. En faisant l'hypothèse que les mots sont tirés au hasard d'après leur seule fréquence, la probabilité que $w$ n'apparaisse pas dans une phrase donnée est $(1-\varphi)^m$ et donc
 
 \begin{align*}
-\mathcal{P}_{w,\Pi} & = (1-f)^{m(|S|-|\Pi|)} \cdot (1-(1-f)^m)^{|\Pi|} \\
-				& = (1-f)^{m|S|}\cdot\left[(1-f)^{-m}-1\right]^{|\Pi|}
+\mathcal{P}_{w,\Pi} & = (1-\varphi)^{m(|S|-|\Pi|)} \cdot (1-(1-\varphi)^m)^{|\Pi|} \\
+				& = (1-\varphi)^{m|S|}\cdot\left[(1-\varphi)^{-m}-1\right]^{|\Pi|}
 \end{align*}
 
-Soient maintenant $w$ et $w'$ deux mots de fréquences respectives $f$ et $g$. Notons $\mathcal{A}_{w,w'}$ la probabilité que ces deux mots aient le même profil et $\check{\mathcal{A}}_{w,w'}$ la probabilité que ces deux mots aient le même profil \emph{non-nul} dans $S$.
+Soient maintenant $w$ et $w'$ deux mots de fréquences respectives $\varphi$ et $\psi$. Notons $\mathcal{A}_{w,w'}$ la probabilité que ces deux mots aient le même profil et $\check{\mathcal{A}}_{w,w'}$ la probabilité que ces deux mots aient le même profil \emph{non-nul} dans $S$.
 
 On a alors sous \emph{l'hypothèse que $w$ et $w'$ sont indépendants} :
 
 \begin{align*}
-	P[\pi(w)=\pi(w')] % $$$
-	& = \sum_{\Pi~profil}P[\pi(w)=\Pi\wedge\pi(w')=\Pi] \\
-	& = \sum_{\Pi~profil}P[\pi(w)=\Pi]\cdot P[\pi(w')=\Pi] \\
-	& = \sum_{\Pi~profil}(1-f)^{m|S|}\cdot((1-f)^{-m}-1)^{\Pi}
-		\cdot(1-g)^{m|S|}\cdot((1-g)^{-m}-1)^{\Pi} \\
-	& = \sum_{\Pi~profil}[(1-f)(1-g)]^{m|S|}
-		\cdot[((1-f)^{-m}-1)((1-g)^{-m}-1)] \\
-	& = \sum_{k=0}^{|S|}~\sum_{|\Pi|=k} [(1-f)(1-g)]^{m|S|}
-		\cdot[((1-f)(1-g))^{-m}-(1-f)^{-m}-(1-g)^{-m}+1]^{|\Pi|} \\
-	& = \sum_{k=0}^{|S|}\binom{|S|}{k} [(1-f)(1-g)]^{m|S|}
-		\cdot[((1-f)(1-g))^{-m}-(1-f)^{-m}-(1-g)^{-m}+1]^k \\
-	& = [(1-f)(1-g)]^{m|S|}
-		\cdot[((1-f)(1-g))^{-m}-(1-f)^{-m}-(1-g)^{-m}+2]^{|S|} \\
-	& = [1-(1-f)^m-(1-g)^m+2(1-f)^m(1-g)^m]^{|S|}
+\mathcal{A}_{w,w'} & = \sum_{\Pi~profil}\mathcal{P}_{w,\Pi}\cdot\mathcal{P}_{w',\Pi} \\
+				& = \sum_{\Pi~profil}(1-\varphi)^{m|S|}\cdot((1-\varphi)^{-m}-1)^{\Pi} \cdot(1-\psi)^{m|S|}\cdot((1-\psi)^{-m}-1)^{\Pi} \\
+				& = \sum_{\Pi~profil}[(1-\varphi)(1-\psi)]^{m|S|}\cdot[((1-\varphi)^{-m}-1)((1-\psi)^{-m}-1)] \\
+				& =~~ \sum_{k=0}^{|S|}~\sum_{|\Pi|=k} [(1-\varphi)(1-\psi)]^{m|S|}\cdot[((1-\varphi)(1-\psi))^{-m}-(1-\varphi)^{-m}-(1-\psi)^{-m}+1]^{|\Pi|} \\
+				& =~~ \sum_{k=0}^{|S|}\binom{|S|}{k} [(1-\varphi)(1-\psi)]^{m|S|}\cdot[((1-\varphi)(1-\psi))^{-m}-(1-\varphi)^{-m}-(1-\psi)^{-m}+1]^k \\
+				& =~~ [(1-\varphi)(1-\psi)]^{m|S|} \cdot[((1-\varphi)(1-\psi))^{-m}-(1-\varphi)^{-m}-(1-\psi)^{-m}+2]^{|S|} \\
+				& =~~ [1-(1-\varphi)^m-(1-\psi)^m+2(1-\varphi)^m(1-\psi)^m]^{|S|}
 \end{align*}
 
-et % $$$
+et
 
+\begin{align*}
+\check{\mathcal{A}}_{w,w'} & =~~ \sum_{\Pi\neq 0}\mathcal{P}_{w,\Pi}\cdot\mathcal{P}_{w',\Pi} \\
+					& =~~ \sum_{k=1}^{|S|}\binom{|S|}{k} [(1-\varphi)(1-\psi)]^{m|S|}\cdot[((1-\varphi)(1-\psi))^{-m}-(1-\varphi)^{-m}-(1-\psi)^{-m}+1]^k \\
+					& =~~ [(1-\varphi)(1-\psi)]^{m|S|}\cdot[[((1-\varphi)(1-\psi))^{-m}-(1-\varphi)^{-m}-(1-\psi)^{-m}+2]^{|S|}-1] \\
+					& =~~ [1-(1-\varphi)^m-(1-\psi)^m+2(1-\varphi)^m(1-\psi)^m]^{|S|} - [(1-\varphi)(1-\psi)]^{m|S|}
+\end{align*}
+
+% $$$ ?
+% set logscale
+% splot [0.0001:0.1] [0.0001:0.1] ((1-((1-x)**20)-((1-y)**20)+2*((1-x)**20)*((1-y)**20))**15)-(((1-x)*(1-y))**300)
 
 
 \subsection{Alignement de e et f}
+
+Soient $e$ et $f$ deux mots de deux langues différentes (de fréquences respectives $\varphi$ et $\psi$). On va supposer que toutes les phrases du corpus ont une longueur $20$ et qu'\anym~sélectionne des sous-corpus de taille $|S|=15$. L'espérance du nombre d'alignements de $e$ et $f$ en $k$ étapes est $\mathbb{E}[Al(e,f)] \leq k\check{\mathcal{A}}_{e,f}$ (l'inégalité vient du fait qu'avoir le même profil non-nul est une condition nécessaire mais pas suffisante pour que $e$ et $f$ soient alignés : il faut aussi qu'ils soient les seuls dans leur langue respective à posséder ce profil).
+
+Ainsi, si l'on suppose l'indépendance de $e$ et $f$, que $k=10^6$, et que $\varphi = \psi$ (ce qui maximise % un mot plus propre que "localement" ? $$$
+$\check{\mathcal{A}}_{e,f}$), on obtient les  soit $\mathbb{E}[Al(e,f)] \leq 27210$.
+
+\begin{tabular}{|l|l|l|}
+\hline
+$\varphi$ & $\mathbb{E}[Al(e,f)] \leq \dots$ & \anym \\
+\hline
+\end{tabular}
+
+% Je confronte quoi avec quoi idéalement ?... $$$
 
 \subsection{Alignement de n-grams}
 
@@ -440,10 +476,11 @@ et % $$$
 
 \section{Annexes}
 
-% Autres figures
+% Autres figures $$$
 
 \end{document}
 
+% Où parlé-je de Zipf ? $$$
 
 
 
@@ -453,12 +490,11 @@ et % $$$
 
 
 
-
-
+% $$$
 %\section{Autres pistes}
 %\subsection{Chinois}
 %\subsection{Vitesse de convergence}
-%\subsection{Discussion sur la taille du sous-corpus}
+%\subsection{Discussion sur la taille du sous-corpus} +m
 %\subsection{generateur.c}
 
 
