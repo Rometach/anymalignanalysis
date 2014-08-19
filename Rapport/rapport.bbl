@@ -1,0 +1,95 @@
+\begin{thebibliography}{10}
+
+\bibitem{baayen2001word}
+R~Harald Baayen.
+\newblock {\em Word frequency distributions}, volume~18.
+\newblock Springer, 2001.
+
+\bibitem{broder2000identifying}
+Andrei~Z. Broder.
+\newblock Identifying and filtering near-duplicate documents.
+\newblock In {\em Combinatorial pattern matching}, pages 1--10. Springer, 2000.
+
+\bibitem{Brown:1990:SAM:92858.92860}
+Peter~F. Brown, John Cocke, Stephen A.~Della Pietra, Vincent J.~Della Pietra,
+  Fredrick Jelinek, John~D. Lafferty, Robert~L. Mercer, and Paul~S. Roossin.
+\newblock A statistical approach to machine translation.
+\newblock {\em Comput. Linguist.}, 16(2):79--85, June 1990.
+
+\bibitem{gaussier2011modeles}
+{\'E}ric Gaussier and Fran{\c{c}}ois Yvon.
+\newblock {\em Mod{\`e}les statistiques pour l'acc{\`e}s {\`a} l'information
+  textuelle}.
+\newblock Lavoisier, 2011.
+
+\bibitem{berkeleywordaligner}
+Berkeley Natural Language~Processing Group.
+\newblock Berkeley word aligner.
+
+\bibitem{hoang2009re}
+Hung~Huu Hoang, Su~Nam Kim, and Min-Yen Kan.
+\newblock A re-examination of lexical association measures.
+\newblock In {\em Proceedings of the Workshop on Multiword Expressions:
+  Identification, Interpretation, Disambiguation and Applications}, pages
+  31--39. Association for Computational Linguistics, 2009.
+
+\bibitem{hutchins1986machine}
+William~John Hutchins.
+\newblock {\em Machine translation: past, present, future}.
+\newblock Ellis Horwood Chichester, 1986.
+
+\bibitem{koehn2005europarl}
+Philipp Koehn.
+\newblock Europarl: A parallel corpus for statistical machine translation.
+\newblock In {\em MT summit}, volume~5, pages 79--86, 2005.
+
+\bibitem{anymalign}
+Adrien Lardilleux.
+\newblock Anymalign.
+
+\bibitem{lardilleux2013generalizing}
+Adrien Lardilleux, Fran{\c{c}}ois Yvon, and Yves Lepage.
+\newblock Generalizing sampling-based multilingual alignment.
+\newblock {\em Machine translation}, 27(1):1--23, 2013.
+
+\bibitem{och2003systematic}
+Franz~Josef Och and Hermann Ney.
+\newblock A systematic comparison of various statistical alignment models.
+\newblock {\em Computational linguistics}, 29(1):19--51, 2003.
+
+\bibitem{och2003giza++}
+Franz~Joseph Och.
+\newblock Giza++, 2003.
+
+\bibitem{pecina2006combining}
+Pavel Pecina and Pavel Schlesinger.
+\newblock Combining association measures for collocation extraction.
+\newblock In {\em Proceedings of the COLING/ACL on Main conference poster
+  sessions}, pages 651--658. Association for Computational Linguistics, 2006.
+
+\bibitem{nilewordaligner}
+Jason Riesa.
+\newblock Nile word aligner.
+
+\bibitem{vogel1996hmm}
+Stephan Vogel, Hermann Ney, and Christoph Tillmann.
+\newblock Hmm-based word alignment in statistical translation.
+\newblock In {\em Proceedings of the 16th conference on Computational
+  linguistics-Volume 2}, pages 836--841. Association for Computational
+  Linguistics, 1996.
+
+\bibitem{weaver1947letters}
+Warren Weaver and Norbert Wiener.
+\newblock Letters between w. weaver and n. wiener, March 1947.
+
+\bibitem{zipf1935psycho}
+George~Kingsley Zipf.
+\newblock The psycho-biology of language.
+\newblock 1935.
+
+\bibitem{zipf1949human}
+George~Kingsley Zipf.
+\newblock Human behavior and the principle of least effort.
+\newblock 1949.
+
+\end{thebibliography}

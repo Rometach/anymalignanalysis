@@ -1,0 +1,38 @@
+\select@language {french}
+\contentsline {section}{\numberline {1}Introduction}{3}
+\contentsline {section}{\numberline {2}Contexte, rappels}{3}
+\contentsline {subsection}{\numberline {2.1}Traitement des langues parl\IeC {\'e}es}{3}
+\contentsline {subsection}{\numberline {2.2}Traduction automatique}{4}
+\contentsline {subsection}{\numberline {2.3}Quelques d\IeC {\'e}finitions et notations}{5}
+\contentsline {subsubsection}{\numberline {2.3.1}Langues naturelles}{5}
+\contentsline {subsubsection}{\numberline {2.3.2}Fr\IeC {\'e}quences des mots}{6}
+\contentsline {section}{\numberline {3}Pr\IeC {\'e}sentation d'\emph {anymalign}}{6}
+\contentsline {subsection}{\numberline {3.1}L'algorithme}{6}
+\contentsline {subsubsection}{\numberline {3.1.1}Exemple}{7}
+\contentsline {subsubsection}{\numberline {3.1.2}Remarques}{7}
+\contentsline {subsection}{\numberline {3.2}Qualit\IeC {\'e}s et d\IeC {\'e}fauts}{8}
+\contentsline {section}{\numberline {4}Mesures d'association}{9}
+\contentsline {subsection}{\numberline {4.1}D\IeC {\'e}finitions}{9}
+\contentsline {subsection}{\numberline {4.2}Comparaison avec \emph {anymalign}}{10}
+\contentsline {subsubsection}{\numberline {4.2.1}\emph {anymalign}}{10}
+\contentsline {subsubsection}{\numberline {4.2.2}Jaccard}{11}
+\contentsline {subsubsection}{\numberline {4.2.3}PMI}{12}
+\contentsline {subsubsection}{\numberline {4.2.4}Conclusion}{13}
+\contentsline {section}{\numberline {5}Analyse th\IeC {\'e}orique}{14}
+\contentsline {subsection}{\numberline {5.1}Calculs}{14}
+\contentsline {subsection}{\numberline {5.2}Applications}{15}
+\contentsline {subsection}{\numberline {5.3}Autres pistes}{16}
+\contentsline {subsubsection}{\numberline {5.3.1}Programmes de simulation}{16}
+\contentsline {subsubsection}{\numberline {5.3.2}Chinois}{17}
+\contentsline {subsubsection}{\numberline {5.3.3}Taille du sous-corpus}{17}
+\contentsline {subsubsection}{\numberline {5.3.4}Vitesse de convergence}{18}
+\contentsline {section}{\numberline {6}Conclusion}{18}
+\contentsline {section}{\numberline {7}Bibliographie}{19}
+\contentsline {section}{\numberline {8}Annexes}{20}
+\contentsline {subsection}{\numberline {8.1}Exemple d'ex\IeC {\'e}cution d'\emph {anymalign}}{20}
+\contentsline {subsection}{\numberline {8.2}Mesures d'association}{21}
+\contentsline {subsection}{\numberline {8.3}Figures}{21}
+\contentsline {subsubsection}{\numberline {8.3.1}Mesures donnant des r\IeC {\'e}sultats similaires au Jaccard}{21}
+\contentsline {subsubsection}{\numberline {8.3.2}Mesures donnant des r\IeC {\'e}sultats similaires \IeC {\`a} l'Information Mutuelle}{21}
+\contentsline {subsubsection}{\numberline {8.3.3}Mesures donnant peu de r\IeC {\'e}sultats exploitables}{22}
+\contentsline {subsubsection}{\numberline {8.3.4}Jaccard et Information Mutuelle en \IeC {\'e}chelle lin\IeC {\'e}aire}{23}

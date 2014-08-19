@@ -1,0 +1,575 @@
+This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2014.7.22)  19 AUG 2014 13:52
+entering extended mode
+ %&-line parsing enabled.
+**rapport.tex
+(./rapport.tex
+LaTeX2e <2009/09/24>
+Babel <v3.8l> and hyphenation patterns for english, usenglishmax, dumylang, noh
+yphenation, pinyin, loaded.
+(/usr/share/texmf-texlive/tex/latex/base/article.cls
+Document Class: article 2007/10/19 v1.4h Standard LaTeX document class
+(/usr/share/texmf-texlive/tex/latex/base/size10.clo
+File: size10.clo 2007/10/19 v1.4h Standard LaTeX file (size option)
+)
+\c@part=\count79
+\c@section=\count80
+\c@subsection=\count81
+\c@subsubsection=\count82
+\c@paragraph=\count83
+\c@subparagraph=\count84
+\c@figure=\count85
+\c@table=\count86
+\abovecaptionskip=\skip41
+\belowcaptionskip=\skip42
+\bibindent=\dimen102
+)
+(/usr/share/texmf-texlive/tex/generic/babel/babel.sty
+Package: babel 2008/07/06 v3.8l The Babel package
+
+(/usr/share/texmf-texlive/tex/generic/babel/frenchb.ldf
+Language: frenchb 2009/03/16 v2.3d French support from the babel system
+
+(/usr/share/texmf-texlive/tex/generic/babel/babel.def
+File: babel.def 2008/07/06 v3.8l Babel common definitions
+\babel@savecnt=\count87
+\U@D=\dimen103
+)
+
+Package babel Warning: No hyphenation patterns were loaded for
+(babel)                the language `French'
+(babel)                I will use the patterns loaded for \language=0 instead.
+
+\l@french = a dialect from \language0
+Package babel Info: Making : an active character on input line 120.
+Package babel Info: Making ; an active character on input line 121.
+Package babel Info: Making ! an active character on input line 122.
+Package babel Info: Making ? an active character on input line 123.
+\FB@Mht=\dimen104
+\std@mcc=\count88
+\dec@mcc=\count89
+\parindentFFN=\dimen105
+*************************************
+* Local config file frenchb.cfg used
+*
+(/usr/share/texmf-texlive/tex/generic/babel/frenchb.cfg)))
+(/usr/share/texmf-texlive/tex/latex/carlisle/scalefnt.sty)
+(/usr/share/texmf-texlive/tex/latex/graphics/keyval.sty
+Package: keyval 1999/03/16 v1.13 key=value parser (DPC)
+\KV@toks@=\toks14
+)
+(/usr/share/texmf-texlive/tex/latex/base/inputenc.sty
+Package: inputenc 2008/03/30 v1.1d Input encoding file
+\inpenc@prehook=\toks15
+\inpenc@posthook=\toks16
+
+(/usr/share/texmf-texlive/tex/latex/ucs/utf8x.def
+File: utf8x.def 2004/10/17 UCS: Input encoding UTF-8
+))
+(/usr/share/texmf-texlive/tex/latex/ucs/ucs.sty
+Package: ucs 2004/10/17 UCS: Unicode input support
+
+(/usr/share/texmf-texlive/tex/latex/ucs/data/uni-global.def
+File: uni-global.def 2004/10/17 UCS: Unicode global data
+)
+\uc@secondtry=\count90
+\uc@combtoks=\toks17
+\uc@combtoksb=\toks18
+\uc@temptokena=\toks19
+)
+(/usr/share/texmf-texlive/tex/latex/base/fontenc.sty
+Package: fontenc 2005/09/27 v1.99g Standard LaTeX package
+
+(/usr/share/texmf-texlive/tex/latex/base/t1enc.def
+File: t1enc.def 2005/09/27 v1.99g Standard LaTeX file
+LaTeX Font Info:    Redeclaring font encoding T1 on input line 43.
+))
+(/usr/share/texmf-texlive/tex/latex/psnfss/bookman.sty
+Package: bookman 2005/04/12 PSNFSS-v9.2a (SPQR) 
+)
+(/usr/share/texmf-texlive/tex/latex/amsmath/amsmath.sty
+Package: amsmath 2000/07/18 v2.13 AMS math features
+\@mathmargin=\skip43
+
+For additional information on amsmath, use the `?' option.
+(/usr/share/texmf-texlive/tex/latex/amsmath/amstext.sty
+Package: amstext 2000/06/29 v2.01
+
+(/usr/share/texmf-texlive/tex/latex/amsmath/amsgen.sty
+File: amsgen.sty 1999/11/30 v2.0
+\@emptytoks=\toks20
+\ex@=\dimen106
+))
+(/usr/share/texmf-texlive/tex/latex/amsmath/amsbsy.sty
+Package: amsbsy 1999/11/29 v1.2d
+\pmbraise@=\dimen107
+)
+(/usr/share/texmf-texlive/tex/latex/amsmath/amsopn.sty
+Package: amsopn 1999/12/14 v2.01 operator names
+)
+\inf@bad=\count91
+LaTeX Info: Redefining \frac on input line 211.
+\uproot@=\count92
+\leftroot@=\count93
+LaTeX Info: Redefining \overline on input line 307.
+\classnum@=\count94
+\DOTSCASE@=\count95
+LaTeX Info: Redefining \ldots on input line 379.
+LaTeX Info: Redefining \dots on input line 382.
+LaTeX Info: Redefining \cdots on input line 467.
+\Mathstrutbox@=\box26
+\strutbox@=\box27
+\big@size=\dimen108
+LaTeX Font Info:    Redeclaring font encoding OML on input line 567.
+LaTeX Font Info:    Redeclaring font encoding OMS on input line 568.
+\macc@depth=\count96
+\c@MaxMatrixCols=\count97
+\dotsspace@=\muskip10
+\c@parentequation=\count98
+\dspbrk@lvl=\count99
+\tag@help=\toks21
+\row@=\count100
+\column@=\count101
+\maxfields@=\count102
+\andhelp@=\toks22
+\eqnshift@=\dimen109
+\alignsep@=\dimen110
+\tagshift@=\dimen111
+\tagwidth@=\dimen112
+\totwidth@=\dimen113
+\lineht@=\dimen114
+\@envbody=\toks23
+\multlinegap=\skip44
+\multlinetaggap=\skip45
+\mathdisplay@stack=\toks24
+LaTeX Info: Redefining \[ on input line 2666.
+LaTeX Info: Redefining \] on input line 2667.
+)
+(/usr/share/texmf-texlive/tex/latex/amsmath/amscd.sty
+Package: amscd 1999/11/29 v1.2d
+\athelp@=\toks25
+\minaw@=\dimen115
+\bigaw@=\dimen116
+\minCDarrowwidth=\dimen117
+)
+(/usr/share/texmf-texlive/tex/latex/amsfonts/amssymb.sty
+Package: amssymb 2009/06/22 v3.00
+
+(/usr/share/texmf-texlive/tex/latex/amsfonts/amsfonts.sty
+Package: amsfonts 2009/06/22 v3.00 Basic AMSFonts support
+\symAMSa=\mathgroup4
+\symAMSb=\mathgroup5
+LaTeX Font Info:    Overwriting math alphabet `\mathfrak' in version `bold'
+(Font)                  U/euf/m/n --> U/euf/b/n on input line 96.
+))
+(/usr/share/texmf-texlive/tex/latex/amscls/amsthm.sty
+Package: amsthm 2004/08/06 v2.20
+\thm@style=\toks26
+\thm@bodyfont=\toks27
+\thm@headfont=\toks28
+\thm@notefont=\toks29
+\thm@headpunct=\toks30
+\thm@preskip=\skip46
+\thm@postskip=\skip47
+\thm@headsep=\skip48
+\dth@everypar=\toks31
+)
+(/usr/share/texmf-texlive/tex/latex/base/latexsym.sty
+Package: latexsym 1998/08/17 v2.2e Standard LaTeX package (lasy symbols)
+\symlasy=\mathgroup6
+LaTeX Font Info:    Overwriting symbol font `lasy' in version `bold'
+(Font)                  U/lasy/m/n --> U/lasy/b/n on input line 47.
+)
+(/usr/share/texmf-texlive/tex/latex/graphics/graphicx.sty
+Package: graphicx 1999/02/16 v1.0f Enhanced LaTeX Graphics (DPC,SPQR)
+
+(/usr/share/texmf-texlive/tex/latex/graphics/graphics.sty
+Package: graphics 2009/02/05 v1.0o Standard LaTeX Graphics (DPC,SPQR)
+
+(/usr/share/texmf-texlive/tex/latex/graphics/trig.sty
+Package: trig 1999/03/16 v1.09 sin cos tan (DPC)
+)
+(/etc/texmf/tex/latex/config/graphics.cfg
+File: graphics.cfg 2009/08/28 v1.8 graphics configuration of TeX Live
+)
+Package graphics Info: Driver file: pdftex.def on input line 91.
+
+(/usr/share/texmf-texlive/tex/latex/pdftex-def/pdftex.def
+File: pdftex.def 2010/03/12 v0.04p Graphics/color for pdfTeX
+\Gread@gobject=\count103
+))
+\Gin@req@height=\dimen118
+\Gin@req@width=\dimen119
+)
+(/usr/share/texmf-texlive/tex/latex/graphics/color.sty
+Package: color 2005/11/14 v1.0j Standard LaTeX Color (DPC)
+
+(/etc/texmf/tex/latex/config/color.cfg
+File: color.cfg 2007/01/18 v1.5 color configuration of teTeX/TeXLive
+)
+Package color Info: Driver file: pdftex.def on input line 130.
+)
+(/usr/share/texmf-texlive/tex/latex/tools/calc.sty
+Package: calc 2007/08/22 v4.3 Infix arithmetic (KKT,FJ)
+\calc@Acount=\count104
+\calc@Bcount=\count105
+\calc@Adimen=\dimen120
+\calc@Bdimen=\dimen121
+\calc@Askip=\skip49
+\calc@Bskip=\skip50
+LaTeX Info: Redefining \setlength on input line 76.
+LaTeX Info: Redefining \addtolength on input line 77.
+\calc@Ccount=\count106
+\calc@Cskip=\skip51
+)
+(/usr/share/texmf-texlive/tex/latex/setspace/setspace.sty
+Package: setspace 2000/12/01 6.7 Contributed and Supported LaTeX2e package
+
+Package: `setspace' 6.7 <2000/12/01>
+) (/usr/share/texmf-texlive/tex/latex/algorithm2e/algorithm2e.sty
+Package: algorithm2e 2005/10/04 v3.9 algorithms environments
+\c@AlgoLine=\count107
+
+(/usr/share/texmf-texlive/tex/latex/base/ifthen.sty
+Package: ifthen 2001/05/26 v1.1c Standard LaTeX ifthen package (DPC)
+)
+(/usr/share/texmf-texlive/tex/latex/tools/xspace.sty
+Package: xspace 2006/05/08 v1.12 Space after command names (DPC,MH)
+)
+********************************************************
+Package `algorithm2e' Release 3.9 -- october 04 2005 --
+- algorithm2e-announce@lirmm.fr mailing list for announcement about releases
+- algorithm2e-discussion@lirmm.fr mailing list for discussion about package
+subscribe by emailing sympa@lirmm.fr with 'subscribe <list> <firstname name>'
+- Author: Christophe Fiorio (fiorio@lirmm.fr)
+********************************************************
+\skiptotal=\skip52
+\skiprule=\skip53
+\skiphlne=\skip54
+\skiptext=\skip55
+\skiplength=\skip56
+\algomargin=\skip57
+\skipalgocfslide=\skip58
+\algowidth=\dimen122
+\inoutsize=\dimen123
+\inoutline=\dimen124
+\algocf@inoutbox=\box28
+\algocf@inputbox=\box29
+\AlCapSkip=\skip59
+\AlCapHSkip=\skip60
+\algocf@capbox=\box30
+\c@algocfline=\count108
+\c@algocf=\count109
+\algocf@algoframe=\box31
+\algocf@algobox=\box32
+)
+\c@probleme=\count110
+ (./rapport.aux)
+\openout1 = `rapport.aux'.
+
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 60.
+LaTeX Font Info:    ... okay on input line 60.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 60.
+LaTeX Font Info:    ... okay on input line 60.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 60.
+LaTeX Font Info:    ... okay on input line 60.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 60.
+LaTeX Font Info:    ... okay on input line 60.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 60.
+LaTeX Font Info:    ... okay on input line 60.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 60.
+LaTeX Font Info:    ... okay on input line 60.
+LaTeX Font Info:    Try loading font information for T1+pbk on input line 60.
+ (/usr/share/texmf-texlive/tex/latex/psnfss/t1pbk.fd
+File: t1pbk.fd 2001/06/04 font definitions for T1/pbk.
+)
+LaTeX Font Info:    Font shape `T1/pbk/m/n' in size <10> not available
+(Font)              Font shape `T1/pbk/l/n' tried instead on input line 60.
+LaTeX Info: Redefining \degres on input line 60.
+LaTeX Info: Redefining \dots on input line 60.
+LaTeX Info: Redefining \up on input line 60.
+
+(/usr/share/texmf-texlive/tex/latex/ucs/ucsencs.def
+File: ucsencs.def 2003/11/29 Fixes to fontencodings LGR, T3
+)
+(/usr/share/texmf-texlive/tex/context/base/supp-pdf.mkii
+[Loading MPS to PDF converter (version 2006.09.02).]
+\scratchcounter=\count111
+\scratchdimen=\dimen125
+\scratchbox=\box33
+\nofMPsegments=\count112
+\nofMParguments=\count113
+\everyMPshowfont=\toks32
+\MPscratchCnt=\count114
+\MPscratchDim=\dimen126
+\MPnumerator=\count115
+\everyMPtoPDFconversion=\toks33
+)
+LaTeX Font Info:    Font shape `T1/pbk/m/n' in size <17.28> not available
+(Font)              Font shape `T1/pbk/l/n' tried instead on input line 62.
+LaTeX Font Info:    Font shape `T1/pbk/m/n' in size <14.4> not available
+(Font)              Font shape `T1/pbk/l/n' tried instead on input line 62.
+LaTeX Font Info:    Font shape `T1/pbk/m/n' in size <12> not available
+(Font)              Font shape `T1/pbk/l/n' tried instead on input line 62.
+LaTeX Font Info:    Try loading font information for U+msa on input line 62.
+ (/usr/share/texmf-texlive/tex/latex/amsfonts/umsa.fd
+File: umsa.fd 2009/06/22 v3.00 AMS symbols A
+)
+LaTeX Font Info:    Try loading font information for U+msb on input line 62.
+
+(/usr/share/texmf-texlive/tex/latex/amsfonts/umsb.fd
+File: umsb.fd 2009/06/22 v3.00 AMS symbols B
+)
+LaTeX Font Info:    Try loading font information for U+lasy on input line 62.
+
+(/usr/share/texmf-texlive/tex/latex/base/ulasy.fd
+File: ulasy.fd 1998/08/17 v2.2e LaTeX symbol font definitions
+)
+LaTeX Font Info:    Font shape `T1/pbk/m/sc' in size <10> not available
+(Font)              Font shape `T1/pbk/l/sc' tried instead on input line 62.
+
+(/usr/share/texmf-texlive/tex/latex/ucs/data/uni-0.def
+File: uni-0.def 2004/10/17 UCS: Unicode data U+0000..U+00FF
+)
+LaTeX Font Info:    Font shape `T1/pbk/m/n' in size <9> not available
+(Font)              Font shape `T1/pbk/l/n' tried instead on input line 64.
+LaTeX Font Info:    Font shape `T1/pbk/bx/n' in size <9> not available
+(Font)              Font shape `T1/pbk/b/n' tried instead on input line 64.
+LaTeX Font Info:    Font shape `T1/pbk/b/n' in size <9> not available
+(Font)              Font shape `T1/pbk/db/n' tried instead on input line 64.
+LaTeX Font Info:    Font shape `T1/pbk/m/it' in size <9> not available
+(Font)              Font shape `T1/pbk/l/it' tried instead on input line 65.
+ [1
+
+{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}]
+LaTeX Font Info:    Font shape `T1/pbk/bx/n' in size <14.4> not available
+(Font)              Font shape `T1/pbk/b/n' tried instead on input line 71.
+LaTeX Font Info:    Font shape `T1/pbk/b/n' in size <14.4> not available
+(Font)              Font shape `T1/pbk/db/n' tried instead on input line 71.
+ (./rapport.toc
+LaTeX Font Info:    Font shape `T1/pbk/bx/n' in size <10> not available
+(Font)              Font shape `T1/pbk/b/n' tried instead on input line 2.
+LaTeX Font Info:    Font shape `T1/pbk/b/n' in size <10> not available
+(Font)              Font shape `T1/pbk/db/n' tried instead on input line 2.
+LaTeX Font Info:    Font shape `T1/pbk/bx/it' in size <10> not available
+(Font)              Font shape `T1/pbk/b/it' tried instead on input line 9.
+LaTeX Font Info:    Font shape `T1/pbk/b/it' in size <10> not available
+(Font)              Font shape `T1/pbk/db/it' tried instead on input line 9.
+LaTeX Font Info:    Font shape `T1/pbk/m/it' in size <10> not available
+(Font)              Font shape `T1/pbk/l/it' tried instead on input line 16.
+)
+\tf@toc=\write3
+\openout3 = `rapport.toc'.
+
+ [2]
+LaTeX Font Info:    Font shape `T1/pbk/bx/n' in size <12> not available
+(Font)              Font shape `T1/pbk/b/n' tried instead on input line 87.
+LaTeX Font Info:    Font shape `T1/pbk/b/n' in size <12> not available
+(Font)              Font shape `T1/pbk/db/n' tried instead on input line 87.
+LaTeX Font Info:    Font shape `T1/pbk/m/n' in size <7> not available
+(Font)              Font shape `T1/pbk/l/n' tried instead on input line 91.
+LaTeX Font Info:    Font shape `T1/pbk/m/n' in size <8> not available
+(Font)              Font shape `T1/pbk/l/n' tried instead on input line 91.
+LaTeX Font Info:    Font shape `T1/pbk/m/it' in size <8> not available
+(Font)              Font shape `T1/pbk/l/it' tried instead on input line 91.
+LaTeX Font Info:    Font shape `T1/pbk/bx/n' in size <8> not available
+(Font)              Font shape `T1/pbk/b/n' tried instead on input line 91.
+LaTeX Font Info:    Font shape `T1/pbk/b/n' in size <8> not available
+(Font)              Font shape `T1/pbk/db/n' tried instead on input line 91.
+
+
+LaTeX Warning: Citation `algorithmesplume' on page 3 undefined on input line 91
+.
+
+[3] [4] [5]
+LaTeX Font Info:    Font shape `T1/pbk/bx/it' in size <14.4> not available
+(Font)              Font shape `T1/pbk/b/it' tried instead on input line 139.
+LaTeX Font Info:    Font shape `T1/pbk/b/it' in size <14.4> not available
+(Font)              Font shape `T1/pbk/db/it' tried instead on input line 139.
+LaTeX Font Info:    Try loading font information for T1+pag on input line 152.
+ (/usr/share/texmf-texlive/tex/latex/psnfss/t1pag.fd
+File: t1pag.fd 2001/06/04 font definitions for T1/pag.
+)
+LaTeX Font Info:    Font shape `T1/pbk/m/n' in size <5> not available
+(Font)              Font shape `T1/pbk/l/n' tried instead on input line 152.
+LaTeX Font Info:    Try loading font information for T1+pcr on input line 177.
+
+(/usr/share/texmf-texlive/tex/latex/psnfss/t1pcr.fd
+File: t1pcr.fd 2001/06/04 font definitions for T1/pcr.
+)
+Underfull \hbox (badness 10000) detected at line 178
+[][]
+ []
+
+
+Overfull \hbox (0.79999pt too wide) detected at line 178
+|[]|
+ []
+
+[6]
+
+LaTeX Warning: Command \textbackslash invalid in math mode on input line 195.
+
+
+LaTeX Warning: Command \textbackslash invalid in math mode on input line 195.
+
+[7] [8]
+LaTeX Font Info:    Try loading font information for U+euf on input line 230.
+ (/usr/share/texmf-texlive/tex/latex/amsfonts/ueuf.fd
+File: ueuf.fd 2009/06/22 v3.00 Euler Fraktur
+) [9]
+LaTeX Font Info:    Font shape `T1/pbk/bx/it' in size <12> not available
+(Font)              Font shape `T1/pbk/b/it' tried instead on input line 249.
+LaTeX Font Info:    Font shape `T1/pbk/b/it' in size <12> not available
+(Font)              Font shape `T1/pbk/db/it' tried instead on input line 249.
+ [10]
+<jacclog.png, id=48, 642.4pt x 481.8pt>
+File: jacclog.png Graphic file (type png)
+ <use jacclog.png> [11]
+<imlog.png, id=53, 642.4pt x 481.8pt>
+File: imlog.png Graphic file (type png)
+ <use imlog.png>
+Overfull \hbox (1.50832pt too wide) in paragraph at lines 318--319
+\T1/pbk/l/n/10 ront sys-té-ma-tique-ment une In-for-ma-tion Mutuelle plus élevé
+e que ceux avec des mots fréquents). 
+ []
+
+[12 <./jacclog.png (PNG copy)>] [13 <./imlog.png (PNG copy)>]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [14]
+[15] [16] [17] (./rapport.bbl
+Underfull \vbox (badness 2538) has occurred while \output is active []
+
+ [18]
+[19])
+
+LaTeX Warning: Command \' invalid in math mode on input line 485.
+
+Missing character: There is no é in font cmr10!
+
+Overfull \hbox (7.30437pt too wide) in paragraph at lines 485--486
+[]\T1/pbk/l/n/10 Ainsi, on pourra in-cré-menter $\OML/cmm/m/it/10 Table\OT1/cmr
+/m/n/10 [\OML/cmm/m/it/10 zoo[]; zoo[]\OT1/cmr/m/n/10 ]$ \T1/pbk/l/n/10 et $\OM
+L/cmm/m/it/10 Table\OT1/cmr/m/n/10 [\OML/cmm/m/it/10 singes; Monkeys\OT1/cmr/m/
+n/10 ]$\T1/pbk/l/n/10 . En re-vanche, la présence
+ []
+
+[20]
+Overfull \hbox (1.57828pt too wide) in paragraph at lines 545--546
+[]\T1/pbk/l/n/10 Cette an-nexe re-groupe les fig-ures obtenues lors de la com-p
+ara-i-son d'\T1/pbk/l/it/10 anymalign \T1/pbk/l/n/10 avec les mesures
+ []
+
+<brawnblog.png, id=88, 642.4pt x 481.8pt>
+File: brawnblog.png Graphic file (type png)
+ <use brawnblog.png>
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+<laplacelog.png, id=89, 642.4pt x 481.8pt>
+File: laplacelog.png Graphic file (type png)
+ <use laplacelog.png>
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+<nexplog.png, id=90, 642.4pt x 481.8pt>
+File: nexplog.png Graphic file (type png)
+ <use nexplog.png>
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+<simpsonlog.png, id=91, 642.4pt x 481.8pt>
+File: simpsonlog.png Graphic file (type png)
+ <use simpsonlog.png>
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+<ttestlog.png, id=92, 642.4pt x 481.8pt>
+File: ttestlog.png Graphic file (type png)
+ <use ttestlog.png>
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+<yuleqlog.png, id=93, 642.4pt x 481.8pt>
+File: yuleqlog.png Graphic file (type png)
+ <use yuleqlog.png>
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+<yuleolog.png, id=94, 642.4pt x 481.8pt>
+File: yuleolog.png Graphic file (type png)
+ <use yuleolog.png>
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+<saliencelog.png, id=95, 642.4pt x 481.8pt>
+File: saliencelog.png Graphic file (type png)
+ <use saliencelog.png>
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+[21] <phi2log.png, id=100, 642.4pt x 481.8pt>
+File: phi2log.png Graphic file (type png)
+ <use phi2log.png>
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+<zscorelog.png, id=101, 642.4pt x 481.8pt>
+File: zscorelog.png Graphic file (type png)
+ <use zscorelog.png>
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+[22 <./brawnblog.png (PNG copy)> <./laplacelog.png (PNG copy)> <./nexplog.png (
+PNG copy)>] <jacc.png, id=108, 642.4pt x 481.8pt>
+File: jacc.png Graphic file (type png)
+ <use jacc.png>
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+<im.png, id=109, 642.4pt x 481.8pt>
+File: im.png Graphic file (type png)
+ <use im.png>
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+[23 <./simpsonlog.png (PNG copy)> <./ttestlog.png (PNG copy)> <./yuleqlog.png (
+PNG copy)>] [24 <./yuleolog.png (PNG copy)> <./saliencelog.png (PNG copy)> <./p
+hi2log.png (PNG copy)>] [25 <./zscorelog.png (PNG copy)> <./jacc.png (PNG copy)
+> <./im.png (PNG copy)>] (./rapport.aux)
+
+LaTeX Warning: There were undefined references.
+
+ ) 
+Here is how much of TeX's memory you used:
+ 5085 strings out of 495046
+ 63219 string characters out of 1181937
+ 149087 words of memory out of 3000000
+ 8131 multiletter control sequences out of 15000+50000
+ 49133 words of font info for 94 fonts, out of 3000000 for 9000
+ 28 hyphenation exceptions out of 8191
+ 29i,25n,26p,1219b,708s stack positions out of 5000i,500n,10000p,200000b,50000s
+{/usr/share/texmf-texlive/fonts/enc/dvips/base/8r.enc}</usr/share/texmf-texli
+ve/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texmf-texlive/fonts/ty
+pe1/public/amsfonts/cmextra/cmex7.pfb></usr/share/texmf-texlive/fonts/type1/pub
+lic/amsfonts/cm/cmmi10.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfont
+s/cm/cmmi5.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmmi7.p
+fb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/sha
+re/texmf-texlive/fonts/type1/public/amsfonts/cm/cmr5.pfb></usr/share/texmf-texl
+ive/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/share/texmf-texlive/fonts/typ
+e1/public/amsfonts/cm/cmsy10.pfb></usr/share/texmf-texlive/fonts/type1/public/a
+msfonts/cm/cmsy5.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/c
+msy7.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/euler/eufm10.pfb
+></usr/share/texmf-texlive/fonts/type1/public/amsfonts/euler/eufm7.pfb></usr/sh
+are/texmf-texlive/fonts/type1/public/amsfonts/symbols/msbm10.pfb></usr/share/te
+xmf-texlive/fonts/type1/urw/avantgar/uagk8a.pfb></usr/share/texmf-texlive/fonts
+/type1/urw/bookman/ubkd8a.pfb></usr/share/texmf-texlive/fonts/type1/urw/bookman
+/ubkdi8a.pfb></usr/share/texmf-texlive/fonts/type1/urw/bookman/ubkl8a.pfb></usr
+/share/texmf-texlive/fonts/type1/urw/bookman/ubkli8a.pfb></usr/share/texmf-texl
+ive/fonts/type1/urw/courier/ucrr8a.pfb>
+Output written on rapport.pdf (25 pages, 431186 bytes).
+PDF statistics:
+ 192 PDF objects out of 1000 (max. 8388607)
+ 0 named destinations out of 1000 (max. 500000)
+ 71 words of extra memory for PDF output out of 10000 (max. 10000000)
+

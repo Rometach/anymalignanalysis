@@ -1,0 +1,48 @@
+This is BibTeX, Version 0.99c (TeX Live 2009/Debian)
+The top-level auxiliary file: rapport.aux
+The style file: plain.bst
+Database file #1: mabiblio.bib
+Warning--empty journal in zipf1935psycho
+Warning--empty journal in zipf1949human
+You've used 18 entries,
+            2118 wiz_defined-function locations,
+            595 strings with 6341 characters,
+and the built_in function-call counts, 5463 in all, are:
+= -- 531
+> -- 219
+< -- 7
++ -- 92
+- -- 70
+* -- 307
+:= -- 878
+add.period$ -- 53
+call.type$ -- 18
+change.case$ -- 86
+chr.to.int$ -- 0
+cite$ -- 20
+duplicate$ -- 231
+empty$ -- 479
+format.name$ -- 70
+if$ -- 1182
+int.to.chr$ -- 0
+int.to.str$ -- 18
+missing$ -- 16
+newline$ -- 88
+num.names$ -- 36
+pop$ -- 134
+preamble$ -- 1
+purify$ -- 71
+quote$ -- 0
+skip$ -- 184
+stack$ -- 0
+substring$ -- 279
+swap$ -- 60
+text.length$ -- 7
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 66
+warning$ -- 2
+while$ -- 57
+width$ -- 20
+write$ -- 181
+(There were 2 warnings)

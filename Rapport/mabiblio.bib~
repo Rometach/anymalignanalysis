@@ -164,11 +164,13 @@
 }
 
 @article{algorithmesplume,
-  title={Robots, les algorithmes prennent la plume},
-  author={Eudes, Yves},
-  journal={Le Monde Sciences et techno},
-  year={2014},
-  month={jun},
-  url={http://www.lemonde.fr/sciences/article/2014/06/30/robots-les-algorithmes-prennent-la-plume_4448161_1650684.html}
+  title={Generalizing sampling-based multilingual alignment},
+  author={Lardilleux, Adrien and Yvon, Fran{\c{c}}ois and Lepage, Yves},
+  journal={Machine translation},
+  volume={27},
+  number={1},
+  pages={1--23},
+  year={2013},
+  publisher={Springer}
 }
 
